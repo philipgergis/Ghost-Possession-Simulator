@@ -105,7 +105,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f5dbf814-74b4-4e83-83c2-17f7bdcf9066"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
