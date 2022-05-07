@@ -52,19 +52,27 @@ public class ParentControls : MonoBehaviour
 
     protected virtual void Possession()
     {
-        if (inControl && mainControls.Main.Possess.triggered)
+        Transform ghost = null;
+
+        foreach (Transform child in transform)
         {
-            foreach(Transform child in transform)
+            if (child.tag == "Ghost")
             {
-                if(child.tag == "Ghost")
-                {
-                    child.gameObject.SetActive(true);
-                    child.GetComponent<ParentControls>().SetControl(true);
-                    child.transform.parent = null;
-                    SetControl(false);
-                    break;
-                }
+                ghost = child;
+                break;
             }
+        }
+
+        if (inControl && mainControls.Main.Possess.triggered && ghost != null)
+        {
+            Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
+            if(obstacles.Length == 0)
+            {
+                ghost.gameObject.SetActive(true);
+                ghost.GetComponent<ParentControls>().SetControl(true);
+                ghost.transform.parent = null;
+                SetControl(false);
+            } 
         }   
     }
 

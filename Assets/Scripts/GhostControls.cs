@@ -27,10 +27,11 @@ public class GhostControls : ParentControls
             Collider[] possessions = Physics.OverlapBox(transform.position, new Vector3(3, 3, 3), Quaternion.identity, LayerMask.GetMask("Possess"));
             if (possessions.Length > 0)
             {
-                this.transform.parent = possessions[0].transform;
+                transform.position = possessions[0].transform.position + new Vector3(0, 2, 0);
+                transform.parent = possessions[0].transform;
                 possessions[0].GetComponent<ParentControls>().SetControl(true);
                 SetControl(false);
-                this.gameObject.SetActive(false);
+                gameObject.SetActive(false);
             }
         }
     }
