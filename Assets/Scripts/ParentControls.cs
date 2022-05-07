@@ -40,20 +40,25 @@ public class ParentControls : MonoBehaviour
     {
         if(inControl)
         {
+            // Makes a vector 3 based on the input and speed, then moves the entity to that position
             Vector3 move = mainControls.Main.Move.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
             rb.MovePosition(move + transform.position);
         }
     }
 
+    // used to change inControl
     public void SetControl(bool control)
     {
         inControl = control;
     }
 
+    // if object is possessed and nothing is blocking the ghost, the ghost unpossesses the entity
     protected virtual void Possession()
     {
+        // ghost variable
         Transform ghost = null;
 
+        // looks for a ghost in the child objects
         foreach (Transform child in transform)
         {
             if (child.tag == "Ghost")
@@ -63,9 +68,13 @@ public class ParentControls : MonoBehaviour
             }
         }
 
+        // if entity is in control, the possess button is pressed, and the ghost is a child, unpossess the target
         if (inControl && mainControls.Main.Possess.triggered && ghost != null)
         {
+            // checks for objects the ghost cannot spawn over
             Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
+
+            // if no objects blocking the way, unposssess target
             if(obstacles.Length == 0)
             {
                 ghost.gameObject.SetActive(true);
@@ -82,6 +91,7 @@ public class ParentControls : MonoBehaviour
         MoveEntity();
     }
 
+    // handles other controls
     protected void Update()
     {
         Possession();
