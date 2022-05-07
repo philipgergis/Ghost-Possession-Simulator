@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ParentControls : MonoBehaviour
 {
+    // boolean to check if player is controlling entity
+    protected bool inControl = false;
+
     // Input Actions for controls
     protected MainControls mainControls;
     protected Rigidbody rb;
@@ -35,16 +38,45 @@ public class ParentControls : MonoBehaviour
     // moves through rigidbody by setting velocity
     protected virtual void MoveEntity()
     {
-        Vector3 move = mainControls.Main.Move.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
-        Vector3 fly = mainControls.Ghost.Fly.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
-        rb.MovePosition(move + fly + transform.position);
-        
+        if(inControl)
+        {
+            Vector3 move = mainControls.Main.Move.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
+            rb.MovePosition(move + transform.position);
+        }
+    }
+
+    public void SetControl(bool control)
+    {
+        inControl = control;
+    }
+
+    protected virtual void Possession()
+    {
+        if (inControl && mainControls.Main.Possess.triggered)
+        {
+            foreach(Transform child in transform)
+            {
+                if(child.tag == "Ghost")
+                {
+                    child.gameObject.SetActive(true);
+                    child.GetComponent<ParentControls>().SetControl(true);
+                    child.transform.parent = null;
+                    SetControl(false);
+                    break;
+                }
+            }
+        }   
     }
 
     // handles movement of the player
     protected virtual void FixedUpdate()
     {
         MoveEntity();
+    }
+
+    protected void Update()
+    {
+        Possession();
     }
 
 }

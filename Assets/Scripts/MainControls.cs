@@ -44,6 +44,15 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Possess"",
+                    ""type"": ""Button"",
+                    ""id"": ""234313dd-0bf6-43fc-899f-e3ec114cc3be"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -105,11 +114,22 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f5dbf814-74b4-4e83-83c2-17f7bdcf9066"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b2580cb-fd53-4edd-9499-27e4ad1ecca7"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Possess"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -172,6 +192,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
         m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
         m_Main_Ability = m_Main.FindAction("Ability", throwIfNotFound: true);
+        m_Main_Possess = m_Main.FindAction("Possess", throwIfNotFound: true);
         // Ghost
         m_Ghost = asset.FindActionMap("Ghost", throwIfNotFound: true);
         m_Ghost_Fly = m_Ghost.FindAction("Fly", throwIfNotFound: true);
@@ -236,12 +257,14 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     private IMainActions m_MainActionsCallbackInterface;
     private readonly InputAction m_Main_Move;
     private readonly InputAction m_Main_Ability;
+    private readonly InputAction m_Main_Possess;
     public struct MainActions
     {
         private @MainControls m_Wrapper;
         public MainActions(@MainControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Main_Move;
         public InputAction @Ability => m_Wrapper.m_Main_Ability;
+        public InputAction @Possess => m_Wrapper.m_Main_Possess;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -257,6 +280,9 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @Ability.started -= m_Wrapper.m_MainActionsCallbackInterface.OnAbility;
                 @Ability.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnAbility;
                 @Ability.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnAbility;
+                @Possess.started -= m_Wrapper.m_MainActionsCallbackInterface.OnPossess;
+                @Possess.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnPossess;
+                @Possess.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnPossess;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -267,6 +293,9 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @Ability.started += instance.OnAbility;
                 @Ability.performed += instance.OnAbility;
                 @Ability.canceled += instance.OnAbility;
+                @Possess.started += instance.OnPossess;
+                @Possess.performed += instance.OnPossess;
+                @Possess.canceled += instance.OnPossess;
             }
         }
     }
@@ -308,6 +337,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAbility(InputAction.CallbackContext context);
+        void OnPossess(InputAction.CallbackContext context);
     }
     public interface IGhostActions
     {
