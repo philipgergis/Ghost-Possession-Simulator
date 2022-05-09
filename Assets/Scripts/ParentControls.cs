@@ -14,6 +14,9 @@ public class ParentControls : MonoBehaviour
     // Speed for movement
     [SerializeField] protected float speed;
 
+    // Speed for rotation
+    [SerializeField] protected float rotationSpeed;
+
 
     // Initiate parentControls
     protected virtual void Awake()
@@ -42,6 +45,11 @@ public class ParentControls : MonoBehaviour
         {
             // Makes a vector 3 based on the input and speed, then moves the entity to that position
             Vector3 move = mainControls.Main.Move.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
+
+            // Changes character rotation
+            ChangeRotation(move);
+
+            // Move character
             rb.MovePosition(move + transform.position);
         }
     }
@@ -95,6 +103,21 @@ public class ParentControls : MonoBehaviour
     protected void Update()
     {
         Possession();
+    }
+
+    // change character rotation
+    protected void ChangeRotation(Vector3 move)
+    {
+        // new direction to face
+        Vector3 direction = (move).normalized;
+
+
+        // make player face direction it is going in
+        if (direction != Vector3.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.fixedDeltaTime);
+        }
     }
 
 }
