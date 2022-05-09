@@ -10,6 +10,7 @@ public class GhostControls : ParentControls
         inControl = true;
     }
 
+
     // makes it so ghost can fly and move as well
     protected override void MoveEntity()
     {
@@ -30,6 +31,7 @@ public class GhostControls : ParentControls
         }
     }
 
+
     // possesses target in range
     protected override void Possession()
     {
@@ -41,9 +43,11 @@ public class GhostControls : ParentControls
             if (possessions.Length > 0)
             {
                 // move ghost to above the possessed object, make the ghost its child, then switch controls
-                transform.position = possessions[0].transform.position + new Vector3(0, 2, 0);
-                transform.parent = possessions[0].transform;
-                possessions[0].GetComponent<ParentControls>().SetControl(true);
+                Collider entity = possessions[0];
+                transform.position = entity.transform.position + new Vector3(0, 2, 0);
+                transform.parent = entity.transform;
+                entity.GetComponent<ParentControls>().SetControl(true);
+                CameraShift(entity.transform);
                 SetControl(false);
                 gameObject.SetActive(false);
             }

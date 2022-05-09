@@ -25,17 +25,20 @@ public class ParentControls : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+
     // Enable parentControls
     private void OnEnable()
     {
         mainControls.Enable();
     }
 
+
     // disable parentControls
     private void OnDisable()
     {
         mainControls.Disable();
     }
+
 
     // function used to move the entity based on wasd input
     // moves through rigidbody by setting velocity
@@ -54,11 +57,13 @@ public class ParentControls : MonoBehaviour
         }
     }
 
+
     // used to change inControl
     public void SetControl(bool control)
     {
         inControl = control;
     }
+
 
     // if object is possessed and nothing is blocking the ghost, the ghost unpossesses the entity
     protected virtual void Possession()
@@ -88,22 +93,12 @@ public class ParentControls : MonoBehaviour
                 ghost.gameObject.SetActive(true);
                 ghost.GetComponent<ParentControls>().SetControl(true);
                 ghost.transform.parent = null;
+                CameraShift(ghost);
                 SetControl(false);
             } 
         }   
     }
 
-    // handles movement of the player
-    protected virtual void FixedUpdate()
-    {
-        MoveEntity();
-    }
-
-    // handles other controls
-    protected void Update()
-    {
-        Possession();
-    }
 
     // change character rotation
     protected void ChangeRotation(Vector3 move)
@@ -119,5 +114,30 @@ public class ParentControls : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.fixedDeltaTime);
         }
     }
+
+
+    // makes camera follow right entity
+    protected void CameraShift(Transform newObject)
+    {
+        GameObject mc = GameObject.FindGameObjectWithTag("MainCamera");
+        mc.GetComponent<CameraTrack>().ChangeFocus(newObject);
+
+    }
+
+
+    // handles movement of the player
+    protected virtual void FixedUpdate()
+    {
+        MoveEntity();
+    }
+
+
+    // handles other controls
+    protected void Update()
+    {
+        Possession();
+    }
+
+    
 
 }
