@@ -49,7 +49,7 @@ public class Inventory : MonoBehaviour
     {
         foreach (Transform child in inv)
         {
-            if (child == obj)
+            if (child.gameObject == obj)
             {
                 return true;
             }

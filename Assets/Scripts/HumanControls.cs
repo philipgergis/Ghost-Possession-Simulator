@@ -27,6 +27,13 @@ public class HumanControls : ParentControls
             inv.AddItem(grabs[0].gameObject);
         }
 
+        Collider[] doors = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Door"));
+        if(doors.Length > 0)
+        {
+            DoorInteract door = doors[0].GetComponent<DoorInteract>();
+            door.Interaction(gameObject);
+        }
+
 
     }
 }
