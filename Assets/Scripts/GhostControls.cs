@@ -16,17 +16,21 @@ public class GhostControls : ParentControls
     {
         if (inControl)
         {
-            // move with 4 direction controls
+            // Makes a vector 3 based on the input and speed, then moves the entity to that position
             Vector3 move = mainControls.Main.Move.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
+
+            // Separate rotation and movement values
+            Vector3 forwardBack = move.z * transform.forward;
+            float leftRight = move.x;
+
+            // Change character rotation
+            ChangeRotation(leftRight);
 
             // fly with addition 2 controls
             Vector3 fly = mainControls.Ghost.Fly.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
 
-            // Change character rotation
-            ChangeRotation(move);
-
             // move player
-            rb.MovePosition(fly + move + transform.position);
+            rb.MovePosition(fly + forwardBack + transform.position);
 
         }
     }

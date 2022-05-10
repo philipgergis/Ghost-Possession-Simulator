@@ -49,11 +49,15 @@ public class ParentControls : MonoBehaviour
             // Makes a vector 3 based on the input and speed, then moves the entity to that position
             Vector3 move = mainControls.Main.Move.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
 
+            // Separate rotation and movement values
+            Vector3 forwardBack = move.z * transform.forward;
+            float leftRight = move.x;
+
             // Changes character rotation
-            ChangeRotation(move);
+            ChangeRotation(leftRight);
 
             // Move character
-            rb.MovePosition(move + transform.position);
+            rb.MovePosition(forwardBack + transform.position);
         }
     }
 
@@ -101,17 +105,12 @@ public class ParentControls : MonoBehaviour
 
 
     // change character rotation
-    protected void ChangeRotation(Vector3 move)
+    protected void ChangeRotation(float move)
     {
-        // new direction to face
-        Vector3 direction = (move).normalized;
-
-
         // make player face direction it is going in
-        if (direction != Vector3.zero)
+        if (move != 0)
         {
-            Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.fixedDeltaTime);
+            transform.Rotate(0, move * rotationSpeed * Time.fixedDeltaTime, 0);
         }
     }
 
