@@ -30,8 +30,14 @@ public class GhostControls : ParentControls
             Vector3 fly = mainControls.Ghost.Fly.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
 
             // move player
-            rb.MovePosition(fly + forwardBack + transform.position);
-
+            if (forwardBack != Vector3.zero || fly != Vector3.zero)
+            {
+                rb.MovePosition(fly + forwardBack + transform.position);
+            }
+            else
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
     }
 
