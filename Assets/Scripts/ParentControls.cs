@@ -89,7 +89,7 @@ public class ParentControls : MonoBehaviour
         if (inControl && mainControls.Main.Possess.triggered && ghost != null)
         {
             // checks for objects the ghost cannot spawn over
-            Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
+            Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
 
             // if no objects blocking the way, unposssess target and change the camera
             if(obstacles.Length == 0)
