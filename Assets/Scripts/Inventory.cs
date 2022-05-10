@@ -48,4 +48,16 @@ public class Inventory : MonoBehaviour
         total--;
         child.gameObject.SetActive(true);
     }
+
+    public bool findItem(GameObject obj)
+    {
+        foreach (Transform child in inv)
+        {
+            if (child == obj)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

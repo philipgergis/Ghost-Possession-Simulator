@@ -53,6 +53,24 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""f37fd103-55fc-4b59-9abb-b91e7b46a29a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""f87dea73-b994-44ee-bb21-ae086e5654ab"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +150,28 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""action"": ""Possess"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47943b97-cb09-4449-9ffb-34216041a1f8"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""acf62942-9f41-41d8-a051-627ef8460cc1"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -193,6 +233,8 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
         m_Main_Ability = m_Main.FindAction("Ability", throwIfNotFound: true);
         m_Main_Possess = m_Main.FindAction("Possess", throwIfNotFound: true);
+        m_Main_InventoryLeft = m_Main.FindAction("InventoryLeft", throwIfNotFound: true);
+        m_Main_InventoryRight = m_Main.FindAction("InventoryRight", throwIfNotFound: true);
         // Ghost
         m_Ghost = asset.FindActionMap("Ghost", throwIfNotFound: true);
         m_Ghost_Fly = m_Ghost.FindAction("Fly", throwIfNotFound: true);
@@ -258,6 +300,8 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_Move;
     private readonly InputAction m_Main_Ability;
     private readonly InputAction m_Main_Possess;
+    private readonly InputAction m_Main_InventoryLeft;
+    private readonly InputAction m_Main_InventoryRight;
     public struct MainActions
     {
         private @MainControls m_Wrapper;
@@ -265,6 +309,8 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Main_Move;
         public InputAction @Ability => m_Wrapper.m_Main_Ability;
         public InputAction @Possess => m_Wrapper.m_Main_Possess;
+        public InputAction @InventoryLeft => m_Wrapper.m_Main_InventoryLeft;
+        public InputAction @InventoryRight => m_Wrapper.m_Main_InventoryRight;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -283,6 +329,12 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @Possess.started -= m_Wrapper.m_MainActionsCallbackInterface.OnPossess;
                 @Possess.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnPossess;
                 @Possess.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnPossess;
+                @InventoryLeft.started -= m_Wrapper.m_MainActionsCallbackInterface.OnInventoryLeft;
+                @InventoryLeft.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnInventoryLeft;
+                @InventoryLeft.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnInventoryLeft;
+                @InventoryRight.started -= m_Wrapper.m_MainActionsCallbackInterface.OnInventoryRight;
+                @InventoryRight.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnInventoryRight;
+                @InventoryRight.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnInventoryRight;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -296,6 +348,12 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @Possess.started += instance.OnPossess;
                 @Possess.performed += instance.OnPossess;
                 @Possess.canceled += instance.OnPossess;
+                @InventoryLeft.started += instance.OnInventoryLeft;
+                @InventoryLeft.performed += instance.OnInventoryLeft;
+                @InventoryLeft.canceled += instance.OnInventoryLeft;
+                @InventoryRight.started += instance.OnInventoryRight;
+                @InventoryRight.performed += instance.OnInventoryRight;
+                @InventoryRight.canceled += instance.OnInventoryRight;
             }
         }
     }
@@ -338,6 +396,8 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnAbility(InputAction.CallbackContext context);
         void OnPossess(InputAction.CallbackContext context);
+        void OnInventoryLeft(InputAction.CallbackContext context);
+        void OnInventoryRight(InputAction.CallbackContext context);
     }
     public interface IGhostActions
     {
