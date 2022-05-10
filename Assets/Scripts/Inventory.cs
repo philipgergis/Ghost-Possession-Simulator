@@ -13,35 +13,31 @@ public class Inventory : MonoBehaviour
 
 
     // Add item to inventory
-    public void addItem(GameObject obj)
+    public void AddItem(GameObject obj)
     {
         if(total < maxItems)
         {
             total++;
             obj.transform.parent = inv;
-            obj.transform.position = transform.position + transform.forward * 1;
+            obj.transform.position = transform.position + transform.forward;
             obj.SetActive(false);
         }
     }
 
     // Delete item from inventory
     // Add item to inventory
-    public void deleteItem(GameObject obj)
+    public void DeleteItem(GameObject obj)
     {
-        foreach(Transform child in inv)
+        if(FindItem(obj))
         {
-            if(child == obj)
-            {
-                Destroy(obj);
-                total--;
-                break;
-            }
+            Destroy(obj);
+            total--;
         }
     }
 
 
     // drop item
-    public void dropItem(int index)
+    public void DropItem(int index)
     {
         Transform child = inv.GetChild(index);
         child.parent = null;
@@ -49,7 +45,7 @@ public class Inventory : MonoBehaviour
         child.gameObject.SetActive(true);
     }
 
-    public bool findItem(GameObject obj)
+    public bool FindItem(GameObject obj)
     {
         foreach (Transform child in inv)
         {

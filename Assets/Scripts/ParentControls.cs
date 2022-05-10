@@ -122,6 +122,11 @@ public class ParentControls : MonoBehaviour
         mc.GetComponent<CameraTrack>().ChangeFocus(newObject);
     }
 
+    protected virtual void StartAbility()
+    {
+
+    }
+
 
     // handles movement of the player
     protected virtual void FixedUpdate()
@@ -133,6 +138,7 @@ public class ParentControls : MonoBehaviour
     // handles other controls
     protected void Update()
     {
+        StartAbility();
         Possession();
     }
 

@@ -49,7 +49,7 @@ public class GhostControls : ParentControls
         if (inControl && mainControls.Main.Ability.triggered)
         {
             // checks for any possible possessable objects and possesses one if length is > 0
-            Collider[] possessions = Physics.OverlapBox(transform.position, new Vector3(3, 3, 3), Quaternion.identity, LayerMask.GetMask("Possess"));
+            Collider[] possessions = Physics.OverlapBox(transform.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Possess", "PossessGrab"));
             if (possessions.Length > 0)
             {
                 // move ghost to above the possessed object, make the ghost its child, then switch controls, and change camera control
