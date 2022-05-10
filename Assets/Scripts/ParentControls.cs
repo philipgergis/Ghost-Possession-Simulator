@@ -120,7 +120,6 @@ public class ParentControls : MonoBehaviour
     {
         GameObject mc = GameObject.FindGameObjectWithTag("MainCamera");
         mc.GetComponent<CameraTrack>().ChangeFocus(newObject);
-
     }
 
 
