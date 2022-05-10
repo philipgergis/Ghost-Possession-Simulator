@@ -12,10 +12,10 @@ public class ParentControls : MonoBehaviour
     protected Rigidbody rb;
 
     // Speed for movement
-    [SerializeField] protected float speed;
+    [SerializeField] protected float speed = 5;
 
     // Speed for rotation
-    [SerializeField] protected float rotationSpeed;
+    [SerializeField] protected float rotationSpeed = 1800;
 
 
     // Initiate parentControls
@@ -91,7 +91,7 @@ public class ParentControls : MonoBehaviour
             // checks for objects the ghost cannot spawn over
             Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
 
-            // if no objects blocking the way, unposssess target
+            // if no objects blocking the way, unposssess target and change the camera
             if(obstacles.Length == 0)
             {
                 ghost.gameObject.SetActive(true);
