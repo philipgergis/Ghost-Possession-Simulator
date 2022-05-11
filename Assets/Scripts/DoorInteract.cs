@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DoorInteract : Interact
 {
+    [SerializeField] private bool finalDoor;
+
     [SerializeField] private GameObject key;
     public override void Interaction(GameObject obj)
     {
@@ -13,6 +15,10 @@ public class DoorInteract : Interact
             if(inv.FindItem(key))
             {
                 inv.DeleteItem(key);
+                if(finalDoor)
+                {
+                    Debug.Log("Level Complete!");
+                }
                 Destroy(gameObject);
             }
         }

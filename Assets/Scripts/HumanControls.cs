@@ -13,7 +13,7 @@ public class HumanControls : ParentControls
 
     protected override void StartAbility()
     {
-        if(mainControls.Main.Ability.triggered)
+        if(mainControls.Main.Ability.triggered && inControl)
         {
             GrabOrInteract();
         }
