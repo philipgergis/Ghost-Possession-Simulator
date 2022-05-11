@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9083614785061781500}
   - component: {fileID: 9091099880286156650}
   - component: {fileID: 9122676630093814918}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: DoorD_V2_Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 9083448008610121880}
   - component: {fileID: 9091560709527163788}
   - component: {fileID: 9122741011701242942}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: DoorD_V2_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 9083368512378960948}
   - component: {fileID: 9091594489443671148}
   - component: {fileID: 9124217035564942520}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: DoorD_V2_Window2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 9082732415537567470}
   - component: {fileID: 9092130009473138888}
   - component: {fileID: 9122696047539443876}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: DoorD_V2_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 9079558111911720622}
   - component: {fileID: 9091946128945014082}
   - component: {fileID: 9122639760714227264}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: DoorD_V2_Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,6 +490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9112713689950463054}
   - component: {fileID: 3664452894612524710}
+  - component: {fileID: 3844742340585426857}
   m_Layer: 12
   m_Name: Final Door
   m_TagString: Untagged
@@ -527,5 +528,19 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.3823156, y: 4.655054, z: 0.3276596}
-  m_Center: {x: 0.35156488, y: 1.0428094, z: 0}
+  m_Size: {x: 2.4021235, y: 2.5006144, z: 0.3276596}
+  m_Center: {x: 0.00029706955, y: 1.1208686, z: 0}
+--- !u!114 &3844742340585426857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9115159189414402372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7017da8da9edf2439034b778a7e97a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  finalDoor: 1
+  key: {fileID: 0}
