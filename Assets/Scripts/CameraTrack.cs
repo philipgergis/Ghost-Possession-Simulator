@@ -30,8 +30,11 @@ public class CameraTrack : MonoBehaviour
 
 
     // change entity camera is following
-    public void ChangeFocus(Transform newObject)
+    public void ChangeFocus(Transform newObject, float newHeight, float newOffset, float newTilt)
     {
         tracking = newObject;
+        height = newHeight;
+        offset = newOffset;
+        tilt = newTilt;
     }
 }

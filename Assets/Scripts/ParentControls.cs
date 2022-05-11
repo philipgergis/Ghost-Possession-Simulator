@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ParentControls : MonoBehaviour
 {
+    // protected camera values, first is height, second is offset, third is tilt
+    [SerializeField] protected float[] cameraValues = new float[3];
+
     // boolean to check if player is controlling entity
     protected bool inControl = false;
 
@@ -119,7 +122,13 @@ public class ParentControls : MonoBehaviour
     protected void CameraShift(Transform newObject)
     {
         GameObject mc = GameObject.FindGameObjectWithTag("MainCamera");
-        mc.GetComponent<CameraTrack>().ChangeFocus(newObject);
+        float[] cv = newObject.GetComponent<ParentControls>().GetCameraValues();
+        mc.GetComponent<CameraTrack>().ChangeFocus(newObject, cv[0], cv[1], cv[2]);
+    }
+
+    protected float[] GetCameraValues()
+    {
+        return cameraValues;
     }
 
     protected virtual void StartAbility()
