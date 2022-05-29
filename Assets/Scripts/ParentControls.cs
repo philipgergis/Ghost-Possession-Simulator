@@ -126,11 +126,13 @@ public class ParentControls : MonoBehaviour
         mc.GetComponent<CameraTrack>().ChangeFocus(newObject, cv[0], cv[1], cv[2]);
     }
 
+    // returns camera values
     protected float[] GetCameraValues()
     {
         return cameraValues;
     }
 
+    // used when entities have special abilities
     protected virtual void StartAbility()
     {
 

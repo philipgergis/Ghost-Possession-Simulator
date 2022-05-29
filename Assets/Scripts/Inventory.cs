@@ -37,6 +37,7 @@ public class Inventory : MonoBehaviour
 
 
     // drop item
+    // NOT FULLY IMPLEMENTED
     public void DropItem(int index)
     {
         Transform child = inv.GetChild(index);
@@ -45,6 +46,7 @@ public class Inventory : MonoBehaviour
         child.gameObject.SetActive(true);
     }
 
+    // checks if an item is in the inventory
     public bool FindItem(GameObject obj)
     {
         foreach (Transform child in inv)
