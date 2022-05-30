@@ -132,7 +132,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f5dbf814-74b4-4e83-83c2-17f7bdcf9066"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -143,7 +143,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1b2580cb-fd53-4edd-9499-27e4ad1ecca7"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -244,7 +244,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""71aca12d-0bfb-4243-b407-f852202cb2e2"",
-                    ""path"": ""<Keyboard>/p"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -255,7 +255,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""066bf95f-48de-4667-97b6-f89b60a33e76"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
