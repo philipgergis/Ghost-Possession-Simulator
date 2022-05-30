@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GhostControls : ParentControls
 {
-    
+    //[SerializeField] protected CharacterController controller;
 
     // make it so ghost is controlled as first entity
     private void Start()
@@ -17,14 +17,11 @@ public class GhostControls : ParentControls
     {
         if(inControl)
         {
-            float leftRight = Input.GetAxisRaw("Horizontal");
-            float forwardBackward = Input.GetAxisRaw("Vertical");
-
-            Vector3 fly = mainControls.Ghost.Fly.ReadValue<Vector3>();
-            float upDown = fly.y;
+            float leftRight = mainControls.Main.Move.ReadValue<Vector3>().x; 
+            float forwardBackward = mainControls.Main.Move.ReadValue<Vector3>().z; 
+            float upDown = mainControls.Ghost.Fly.ReadValue<Vector3>().y; 
 
             Vector3 direction = new Vector3(leftRight, upDown, forwardBackward).normalized;
-
             if (direction.magnitude >= 0.1f)
             {
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -34,16 +31,25 @@ public class GhostControls : ParentControls
 
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-                if (direction.x == 0 && direction.z == 0)
+                if(upDown != 0)
                 {
-                    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(0, upDown, 0);
-                    controller.Move(moveDir.normalized * 2f * Time.fixedDeltaTime);
+                    rb.MovePosition(transform.position + new Vector3(0, upDown * speed * Time.fixedDeltaTime, 0));
                 }
                 else
                 {
-                    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(0, upDown, 1);
-                    controller.Move(moveDir.normalized * 2f * Time.fixedDeltaTime);
+                    rb.MovePosition(transform.position + -transform.right * speed * Time.fixedDeltaTime);
                 }
+                
+                //if (direction.x == 0 && direction.z == 0)
+                //{
+                //    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(0, upDown, 0);
+                //    rb.MovePosition(moveDir.normalized * 2f * Time.fixedDeltaTime);
+                //}
+                //else
+                //{
+                //    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(0, upDown, 1);
+                //    rb.MovePosition(moveDir.normalized * 2f * Time.fixedDeltaTime);
+                //}
             }
         }
     }

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class ParentControls : MonoBehaviour
 {
-
-    [SerializeField] protected CharacterController controller;
     [SerializeField] protected Transform cam;
 
     //public float speed = 6f;
@@ -68,19 +66,9 @@ public class ParentControls : MonoBehaviour
 
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-                if (direction.x == 0 && direction.z == 0)
-                {
-                    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(0, 0f, 0);
-                    controller.Move(moveDir.normalized * 2f * Time.fixedDeltaTime);
-                }
-                else
-                {
-                    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(0, 0f, 1);
-                    controller.Move(moveDir.normalized * 2f * Time.fixedDeltaTime);
-                }
+                rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
             }
         }
-        
     }
 
 
