@@ -2775,7 +2775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f60244e8e654d94eabb9ef91559c9e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   turnSmoothTime: 0.1
   turnSmoothVelocity: 0
   adjustmentAngle: 0

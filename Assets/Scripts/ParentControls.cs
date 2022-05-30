@@ -53,8 +53,8 @@ public class ParentControls : MonoBehaviour
     {
         if(inControl)
         {
-            float leftRight = Input.GetAxisRaw("Horizontal");
-            float forwardBackward = Input.GetAxisRaw("Vertical");
+            float leftRight = mainControls.Main.Move.ReadValue<Vector3>().x;
+            float forwardBackward = mainControls.Main.Move.ReadValue<Vector3>().z;
 
             Vector3 direction = new Vector3(leftRight, 0f, forwardBackward).normalized;
 

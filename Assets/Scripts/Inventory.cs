@@ -11,6 +11,12 @@ public class Inventory : MonoBehaviour
     // Inventory child
     [SerializeField] Transform inv;
 
+    // Checks if full capacity is reached
+    public bool RoomAvailable()
+    {
+        return total < maxItems;
+    }
+
 
     // Add item to inventory
     public void AddItem(GameObject obj)

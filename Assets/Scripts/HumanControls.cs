@@ -27,19 +27,22 @@ public class HumanControls : ParentControls
     {
         // Gets object in an area, if they are grabbable it grabs the first one from the list
         Collider[] grabs = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Grab", "PossessGrab"));
-        if (grabs.Length > 0)
-        {
-            inv.AddItem(grabs[0].gameObject);
-        }
 
         // gets a list of doors in the area, and interacts with the first one from the list
         Collider[] doors = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Door"));
-        if(doors.Length > 0)
+
+
+        if (grabs.Length > 0 && inv.RoomAvailable())
         {
-            DoorInteract door = doors[0].GetComponent<DoorInteract>();
-            door.Interaction(gameObject);
+            inv.AddItem(grabs[0].gameObject);
         }
-
-
+        else if (doors.Length > 0)
+        {
+            foreach (Collider col in doors)
+            {
+                DoorInteract door = col.GetComponent<DoorInteract>();
+                door.Interaction(gameObject);
+            }  
+        }
     }
 }
