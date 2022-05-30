@@ -75,12 +75,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbb45ade728ce643b51003037755f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraValues:
-  - 0
-  - 0
-  - 0
+  turnSmoothTime: 0.1
+  turnSmoothVelocity: 0
+  adjustmentAngle: 0
   speed: 1
-  rotationSpeed: 1800
 --- !u!1001 &2080401505848550626
 PrefabInstance:
   m_ObjectHideFlags: 0

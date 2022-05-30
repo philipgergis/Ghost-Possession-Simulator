@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2692201659061041459}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 10.363166, y: 7.708545, z: 17.216013}
   m_Children:
@@ -128,12 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbb45ade728ce643b51003037755f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraValues:
-  - 1
-  - 1.5
-  - 10
+  cam: {fileID: 0}
+  turnSmoothTime: 0.1
+  turnSmoothVelocity: 0
+  adjustmentAngle: 0
   speed: 5
-  rotationSpeed: 1800
 --- !u!1001 &2998824457926939667
 PrefabInstance:
   m_ObjectHideFlags: 0

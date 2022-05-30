@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ParentControls : MonoBehaviour
 {
-    [SerializeField] protected Transform cam;
+    protected Transform cam;
 
     //public float speed = 6f;
     [SerializeField] protected float turnSmoothTime = 0.1f;
@@ -29,6 +29,7 @@ public class ParentControls : MonoBehaviour
     {
         mainControls = new MainControls();
         rb = GetComponent<Rigidbody>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
 
