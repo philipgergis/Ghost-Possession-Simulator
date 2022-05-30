@@ -5,8 +5,15 @@ using UnityEngine;
 public class GhostControls : ParentControls
 {
     //[SerializeField] protected CharacterController controller;
+    private AudioSource ghostAudio;
 
     // make it so ghost is controlled as first entity
+    protected override void Awake()
+    {
+        base.Awake();
+        ghostAudio = GetComponent<AudioSource>();
+    }
+
     private void Start()
     {
         inControl = true;
@@ -65,10 +72,13 @@ public class GhostControls : ParentControls
             if (possessions.Length > 0)
             {
                 // move ghost to above the possessed object, make the ghost its child, then switch controls, and change camera control
+                AudioSource.PlayClipAtPoint(ghostAudio.clip, transform.position);   // for some reason ghostAudio.Play() doesnt work
+
                 Collider entity = possessions[0];
                 transform.position = entity.transform.position + new Vector3(0, 2, 0);
                 transform.forward = entity.transform.forward;
                 transform.parent = entity.transform;
+                entity.GetComponent<ParentControls>().enabled = true;
                 entity.GetComponent<ParentControls>().SetControl(true);
                 CameraShift(entity.transform);
                 SetControl(false);
