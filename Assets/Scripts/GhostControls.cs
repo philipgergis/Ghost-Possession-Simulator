@@ -4,49 +4,55 @@ using UnityEngine;
 
 public class GhostControls : ParentControls
 {
+    
+
     // make it so ghost is controlled as first entity
     private void Start()
     {
         inControl = true;
     }
 
-
-    // makes it so ghost can fly and move as well
+    // Update is called once per frame
     protected override void MoveEntity()
     {
-        if (inControl)
+        if(inControl)
         {
-            // Makes a vector 3 based on the input and speed, then moves the entity to that position
-            Vector3 move = mainControls.Main.Move.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
+            float leftRight = Input.GetAxisRaw("Horizontal");
+            float forwardBackward = Input.GetAxisRaw("Vertical");
 
-            // Separate rotation and movement values
-            Vector3 forwardBack = move.z * transform.forward;
-            float leftRight = move.x;
+            Vector3 fly = mainControls.Ghost.Fly.ReadValue<Vector3>();
+            float upDown = fly.y;
 
-            // Change character rotation
-            //ChangeRotation(leftRight);
+            Vector3 direction = new Vector3(leftRight, upDown, forwardBackward).normalized;
 
-            // fly with addition 2 controls
-            Vector3 fly = mainControls.Ghost.Fly.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
-
-            // move player
-            if (forwardBack != Vector3.zero || fly != Vector3.zero)
+            if (direction.magnitude >= 0.1f)
             {
-                rb.MovePosition(fly + forwardBack + transform.position);
-            }
-            else
-            {
-                rb.velocity = Vector3.zero;
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+
+                //targetAngle needs to be + 90 degrees because for some reason the player model is always 90 degrees off
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle + 90f, ref turnSmoothVelocity, turnSmoothTime);
+
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+                if (direction.x == 0 && direction.z == 0)
+                {
+                    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(0, upDown, 0);
+                    controller.Move(moveDir.normalized * 2f * Time.fixedDeltaTime);
+                }
+                else
+                {
+                    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(0, upDown, 1);
+                    controller.Move(moveDir.normalized * 2f * Time.fixedDeltaTime);
+                }
             }
         }
     }
-
 
     // possesses target in range
     protected override void Possession()
     {
         // if ability is activated and ghost in control
-        if (inControl && mainControls.Main.Ability.triggered)
+        if (inControl && mainControls.Ghost.Possess.triggered)
         {
             // checks for any possible possessable objects and possesses one if length is > 0
             Collider[] possessions = Physics.OverlapBox(transform.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Possess", "PossessGrab"));
