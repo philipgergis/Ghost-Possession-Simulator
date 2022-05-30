@@ -24,7 +24,7 @@ public class GhostControls : ParentControls
             float leftRight = move.x;
 
             // Change character rotation
-            ChangeRotation(leftRight);
+            //ChangeRotation(leftRight);
 
             // fly with addition 2 controls
             Vector3 fly = mainControls.Ghost.Fly.ReadValue<Vector3>() * speed * Time.fixedDeltaTime;
