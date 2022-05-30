@@ -16,7 +16,7 @@ public class HumanControls : ParentControls
     // Ability to call for special ability
     protected override void StartAbility()
     {
-        if(mainControls.Main.Ability.triggered && inControl)
+        if(mainControls.Ghost.Ability.triggered && inControl)
         {
             GrabOrInteract();
         }

@@ -187,6 +187,24 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Possess"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f6ed6f1-529e-4ab5-8579-df5a1460870d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability"",
+                    ""type"": ""Button"",
+                    ""id"": ""1284f72e-d96c-4e2d-8c7b-03b6f3df971b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -222,6 +240,28 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""action"": ""Fly"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71aca12d-0bfb-4243-b407-f852202cb2e2"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Possess"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""066bf95f-48de-4667-97b6-f89b60a33e76"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -238,6 +278,8 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         // Ghost
         m_Ghost = asset.FindActionMap("Ghost", throwIfNotFound: true);
         m_Ghost_Fly = m_Ghost.FindAction("Fly", throwIfNotFound: true);
+        m_Ghost_Possess = m_Ghost.FindAction("Possess", throwIfNotFound: true);
+        m_Ghost_Ability = m_Ghost.FindAction("Ability", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -363,11 +405,15 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Ghost;
     private IGhostActions m_GhostActionsCallbackInterface;
     private readonly InputAction m_Ghost_Fly;
+    private readonly InputAction m_Ghost_Possess;
+    private readonly InputAction m_Ghost_Ability;
     public struct GhostActions
     {
         private @MainControls m_Wrapper;
         public GhostActions(@MainControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Fly => m_Wrapper.m_Ghost_Fly;
+        public InputAction @Possess => m_Wrapper.m_Ghost_Possess;
+        public InputAction @Ability => m_Wrapper.m_Ghost_Ability;
         public InputActionMap Get() { return m_Wrapper.m_Ghost; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -380,6 +426,12 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @Fly.started -= m_Wrapper.m_GhostActionsCallbackInterface.OnFly;
                 @Fly.performed -= m_Wrapper.m_GhostActionsCallbackInterface.OnFly;
                 @Fly.canceled -= m_Wrapper.m_GhostActionsCallbackInterface.OnFly;
+                @Possess.started -= m_Wrapper.m_GhostActionsCallbackInterface.OnPossess;
+                @Possess.performed -= m_Wrapper.m_GhostActionsCallbackInterface.OnPossess;
+                @Possess.canceled -= m_Wrapper.m_GhostActionsCallbackInterface.OnPossess;
+                @Ability.started -= m_Wrapper.m_GhostActionsCallbackInterface.OnAbility;
+                @Ability.performed -= m_Wrapper.m_GhostActionsCallbackInterface.OnAbility;
+                @Ability.canceled -= m_Wrapper.m_GhostActionsCallbackInterface.OnAbility;
             }
             m_Wrapper.m_GhostActionsCallbackInterface = instance;
             if (instance != null)
@@ -387,6 +439,12 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @Fly.started += instance.OnFly;
                 @Fly.performed += instance.OnFly;
                 @Fly.canceled += instance.OnFly;
+                @Possess.started += instance.OnPossess;
+                @Possess.performed += instance.OnPossess;
+                @Possess.canceled += instance.OnPossess;
+                @Ability.started += instance.OnAbility;
+                @Ability.performed += instance.OnAbility;
+                @Ability.canceled += instance.OnAbility;
             }
         }
     }
@@ -402,5 +460,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     public interface IGhostActions
     {
         void OnFly(InputAction.CallbackContext context);
+        void OnPossess(InputAction.CallbackContext context);
+        void OnAbility(InputAction.CallbackContext context);
     }
 }
