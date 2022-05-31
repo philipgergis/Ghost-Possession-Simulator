@@ -320,6 +320,10 @@ public class HumanControls : ParentControls
             MoveEntity();
             m_Jump = false;
         }
+        else
+        {
+            m_Rigidbody.velocity = new Vector3(0, m_Rigidbody.velocity.y, 0);
+        }
         
     }
 }
