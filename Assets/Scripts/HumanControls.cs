@@ -301,8 +301,7 @@ public class HumanControls : InventoryControls
     //From the ThirdPersonUserControls.cs script
     protected override void Update()
     {
-        StartAbility();
-        Possession();
+        base.Update();
         if (!m_Jump)
         {
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");

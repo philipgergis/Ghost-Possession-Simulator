@@ -23,6 +23,40 @@ public class InventoryControls : ParentControls
     }
 
 
+    protected void SelectSlot()
+    {
+        if(inControl)
+        {
+            float scroll = mainControls.Main.Inventory.ReadValue<Vector2>().y;
+            HotbarManager.Instance.UpdateSlot(currentIndex, false, 2);
+            if (scroll > 0)
+            {
+                ChangeIndex(currentIndex - 1);
+            }
+            if (scroll < 0)
+            {
+                ChangeIndex(currentIndex + 1);
+            }
+            HotbarManager.Instance.UpdateSlot(currentIndex, true, 2);
+        }  
+    }
+
+    protected void ChangeIndex(int index)
+    {
+        if(index < 0)
+        {
+            currentIndex = maxItems-1;
+        }
+        else if(index >= maxItems)
+        {
+            currentIndex = 0;
+        }
+        else
+        {
+            currentIndex = index;
+        }
+    }
+    
     // Add item to inventory
     public void AddItem(GameObject obj)
     {
@@ -102,4 +136,12 @@ public class InventoryControls : ParentControls
             DropItem(currentIndex);
         }
     }
+
+    protected override void Update()
+    {
+        base.Update();
+        SelectSlot();
+    }
+
+
 }
