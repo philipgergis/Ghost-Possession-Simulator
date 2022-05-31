@@ -78,7 +78,6 @@ public class GhostControls : ParentControls
                 transform.position = entity.transform.position + new Vector3(0, 2, 0);
                 transform.forward = entity.transform.forward;
                 transform.parent = entity.transform;
-                //entity.GetComponent<ParentControls>().enabled = true;
                 entity.GetComponent<ParentControls>().SetControl(true);
                 CameraShift(entity.transform);
                 SetControl(false);
