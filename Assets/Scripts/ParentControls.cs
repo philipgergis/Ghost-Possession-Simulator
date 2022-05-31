@@ -125,7 +125,6 @@ public class ParentControls : MonoBehaviour
         CinemachineFreeLook tpc = mc.GetComponent<CinemachineFreeLook>();
         tpc.Follow = newObject;
         tpc.LookAt = newObject;
-        
     }
 
     

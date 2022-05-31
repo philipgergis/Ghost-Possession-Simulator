@@ -71,15 +71,26 @@ public class GhostControls : ParentControls
             Collider[] possessions = Physics.OverlapBox(transform.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Possess", "PossessGrab"));
             if (possessions.Length > 0)
             {
-                // move ghost to above the possessed object, make the ghost its child, then switch controls, and change camera control
+                // play possession sfx
                 AudioSource.PlayClipAtPoint(ghostAudio.clip, transform.position);   // for some reason ghostAudio.Play() doesnt work
 
+                // move ghost to above the possessed object, make the ghost its child, then switch controls, and change camera control
                 Collider entity = possessions[0];
                 transform.position = entity.transform.position + new Vector3(0, 2, 0);
                 transform.forward = entity.transform.forward;
                 transform.parent = entity.transform;
                 entity.GetComponent<ParentControls>().SetControl(true);
-                CameraShift(entity.transform);
+
+                // if possessed object is a human, use its CameraLookAt transform instead of the human's transform (bc it's too low)
+                if (entity.tag == "Human")
+                {
+                    CameraShift(entity.GetComponent<HumanControls>().m_CameraLookAt);
+                }
+                else
+                {
+                    CameraShift(entity.transform);
+                }
+
                 SetControl(false);
                 gameObject.SetActive(false);
             }
