@@ -19,7 +19,7 @@ public class DoorInteract : Interact
 
             // Checks the inventory of the player to see if the lpayer has the key
             InventoryControls inv = obj.GetComponent<InventoryControls>();
-            if(inv.FindItem(key))
+            if(inv.GetCurrentItem() == key && inv.GetCurrentItem().GetInstanceID() == key.GetInstanceID())
             {
                 // delete key if the key is the right one for the door
                 inv.DeleteItem(key);

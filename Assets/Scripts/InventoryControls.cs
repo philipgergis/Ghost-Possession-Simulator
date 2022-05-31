@@ -28,6 +28,10 @@ public class InventoryControls : ParentControls
 
     protected void RevertHotbarSettings()
     {
+        for(int i = 0; i < maxItems; i++)
+        {
+            HotbarManager.Instance.UpdateSlot(i, false, 3);
+        }
         HotbarManager.Instance.UpdateSlot(currentIndex, false, 2);
         currentIndex = 0;
         HotbarManager.Instance.UpdateSlot(currentIndex, true, 2);
@@ -45,9 +49,25 @@ public class InventoryControls : ParentControls
         }
     }
 
+    protected void ShowItemImages()
+    {
+        if(inControl)
+        {
+            for (int i = 0; i < maxItems; i++)
+            {
+                if (invObjects[i] != null)
+                {
+                    HotbarManager.Instance.SetSlotImage(i, invObjects[i].GetComponent<Grabbables>().GetImage());
+                    HotbarManager.Instance.UpdateSlot(i, true, 3);
+                }
+            }
+        } 
+    }
+
     protected void HotbarUpdates()
     {
         SelectSlot();
+        ShowItemImages();
         ShowAccessibleSlots(false);
     }
 
@@ -109,9 +129,14 @@ public class InventoryControls : ParentControls
     // Add item to inventory
     public void DeleteItem(GameObject obj)
     {
-        if (FindItem(obj))
+        for(int i = 0; i < maxItems; i++)
         {
-            Destroy(obj);
+            if(invObjects[i] == obj)
+            {
+                invObjects[i] = null;
+                HotbarManager.Instance.UpdateSlot(i, false, 3);
+                Destroy(obj);
+            }
         }
     }
 
@@ -121,10 +146,9 @@ public class InventoryControls : ParentControls
     {
         
         GameObject child = invObjects[index];
-        Debug.Log(child);
-        Debug.Log(child != null && Physics.OverlapSphere(child.transform.position, 0.5f).Length == 0);
         if (child != null && Physics.OverlapSphere(child.transform.position, 0.5f).Length == 0)
         {
+            HotbarManager.Instance.UpdateSlot(currentIndex, false, 3);
             invObjects[index] = null;
             child.transform.parent = null;
             child.SetActive(true);
@@ -132,16 +156,9 @@ public class InventoryControls : ParentControls
     }
 
     // checks if an item is in the inventory
-    public bool FindItem(GameObject obj)
+    public GameObject GetCurrentItem()
     {
-        foreach (Transform child in inv)
-        {
-            if (child.gameObject == obj)
-            {
-                return true;
-            }
-        }
-        return false;
+        return invObjects[currentIndex];
     }
 
 
