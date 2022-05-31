@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class HumanControls : ParentControls
+public class HumanControls : InventoryControls
 {
-    // inventory of the player
-    private Inventory inv;
 
     [SerializeField] float m_MovingTurnSpeed = 360;
     [SerializeField] float m_StationaryTurnSpeed = 180;
@@ -38,8 +36,10 @@ public class HumanControls : ParentControls
     private bool m_Jump;			// the world-relative desired move direction, calculated from the camForward and user input.
 
     // get inventory of player
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Capsule = GetComponent<CapsuleCollider>();
@@ -62,41 +62,26 @@ public class HumanControls : ParentControls
             // we use self-relative controls in this case, which probably isn't what the user wants, but hey, we warned them!
         }
 
-        inv = GetComponent<Inventory>();
+        
     }
 
-    // Ability to call for special ability
-    protected override void StartAbility()
+    // Human interaction with interactable objects
+    protected void HumanInteract()
     {
-        if(mainControls.Ghost.Ability.triggered && inControl)
-        {
-            GrabOrInteract();
-        }
-    }
-
-    // Determines to grab or interact with an object
-    private void GrabOrInteract()
-    {
-        // Gets object in an area, if they are grabbable it grabs the first one from the list
-        Collider[] grabs = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Grab", "PossessGrab"));
-
         // gets a list of doors in the area, and interacts with the first one from the list
         Collider[] doors = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Door"));
 
-
-        if (grabs.Length > 0 && inv.RoomAvailable())
-        {
-            inv.AddItem(grabs[0].gameObject);
-        }
-        else if (doors.Length > 0)
+        if (doors.Length > 0)
         {
             foreach (Collider col in doors)
             {
                 DoorInteract door = col.GetComponent<DoorInteract>();
                 door.Interaction(gameObject);
-            }  
+            }
         }
     }
+
+
 
     protected override void MoveEntity()
     {
@@ -298,6 +283,20 @@ public class HumanControls : ParentControls
             m_Animator.applyRootMotion = false;
         }
     }
+
+    protected override void StartAbility()
+    {
+        if (mainControls.Main.Ability.triggered && inControl)
+        {
+            HumanInteract();
+            GrabObject();
+        }
+        else if (mainControls.Main.Drop.triggered && inControl)
+        {
+            DropObject();
+        }
+    }
+
 
     //From the ThirdPersonUserControls.cs script
     protected override void Update()

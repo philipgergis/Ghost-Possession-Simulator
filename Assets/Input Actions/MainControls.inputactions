@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Drop",
+                    "type": "Button",
+                    "id": "f6b6e000-1de5-4b4d-97b1-76f10dc2d7b5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Possess",
                     "type": "Button",
                     "id": "234313dd-0bf6-43fc-899f-e3ec114cc3be",
@@ -148,6 +157,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "InventoryRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d1bb3e9-497e-4f25-b5e0-c7c77e4db7a4",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

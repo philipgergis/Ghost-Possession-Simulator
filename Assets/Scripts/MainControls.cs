@@ -46,6 +46,15 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Drop"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6b6e000-1de5-4b4d-97b1-76f10dc2d7b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Possess"",
                     ""type"": ""Button"",
                     ""id"": ""234313dd-0bf6-43fc-899f-e3ec114cc3be"",
@@ -170,6 +179,17 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""InventoryRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d1bb3e9-497e-4f25-b5e0-c7c77e4db7a4"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -320,6 +340,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
         m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
         m_Main_Ability = m_Main.FindAction("Ability", throwIfNotFound: true);
+        m_Main_Drop = m_Main.FindAction("Drop", throwIfNotFound: true);
         m_Main_Possess = m_Main.FindAction("Possess", throwIfNotFound: true);
         m_Main_InventoryLeft = m_Main.FindAction("InventoryLeft", throwIfNotFound: true);
         m_Main_InventoryRight = m_Main.FindAction("InventoryRight", throwIfNotFound: true);
@@ -393,6 +414,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     private IMainActions m_MainActionsCallbackInterface;
     private readonly InputAction m_Main_Move;
     private readonly InputAction m_Main_Ability;
+    private readonly InputAction m_Main_Drop;
     private readonly InputAction m_Main_Possess;
     private readonly InputAction m_Main_InventoryLeft;
     private readonly InputAction m_Main_InventoryRight;
@@ -402,6 +424,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         public MainActions(@MainControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Main_Move;
         public InputAction @Ability => m_Wrapper.m_Main_Ability;
+        public InputAction @Drop => m_Wrapper.m_Main_Drop;
         public InputAction @Possess => m_Wrapper.m_Main_Possess;
         public InputAction @InventoryLeft => m_Wrapper.m_Main_InventoryLeft;
         public InputAction @InventoryRight => m_Wrapper.m_Main_InventoryRight;
@@ -420,6 +443,9 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @Ability.started -= m_Wrapper.m_MainActionsCallbackInterface.OnAbility;
                 @Ability.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnAbility;
                 @Ability.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnAbility;
+                @Drop.started -= m_Wrapper.m_MainActionsCallbackInterface.OnDrop;
+                @Drop.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnDrop;
+                @Drop.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnDrop;
                 @Possess.started -= m_Wrapper.m_MainActionsCallbackInterface.OnPossess;
                 @Possess.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnPossess;
                 @Possess.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnPossess;
@@ -439,6 +465,9 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @Ability.started += instance.OnAbility;
                 @Ability.performed += instance.OnAbility;
                 @Ability.canceled += instance.OnAbility;
+                @Drop.started += instance.OnDrop;
+                @Drop.performed += instance.OnDrop;
+                @Drop.canceled += instance.OnDrop;
                 @Possess.started += instance.OnPossess;
                 @Possess.performed += instance.OnPossess;
                 @Possess.canceled += instance.OnPossess;
@@ -546,6 +575,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAbility(InputAction.CallbackContext context);
+        void OnDrop(InputAction.CallbackContext context);
         void OnPossess(InputAction.CallbackContext context);
         void OnInventoryLeft(InputAction.CallbackContext context);
         void OnInventoryRight(InputAction.CallbackContext context);
