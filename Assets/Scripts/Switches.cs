@@ -5,14 +5,14 @@ using UnityEngine;
 public class Switches : MonoBehaviour
 {
     // determines if the switch is on or not
-    private bool on = false;
+    protected bool on = false;
 
     // when an object is on the switch it stays on
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Possess" || other.tag == "Human")
         {
-            on = true;
+            SwitchActivate();
         }
         
     }
@@ -20,7 +20,10 @@ public class Switches : MonoBehaviour
     // when a player leaves the switch it turns off
     private void OnTriggerExit(Collider other)
     {
-        on = false;
+        if (other.tag == "Possess" || other.tag == "Human")
+        {
+            SwitchDeactivate();
+        }
     }
 
     // returns if switch is on or off
@@ -28,4 +31,16 @@ public class Switches : MonoBehaviour
     {
         return on;
     }
+
+    protected virtual void SwitchActivate()
+    {
+        on = true;
+    }
+
+    protected virtual void SwitchDeactivate()
+    {
+        on = false;
+    }
+
+
 }
