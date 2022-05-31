@@ -64,7 +64,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		}
 
 
-		public override void MoveEntity()
+		protected override void MoveEntity()
 		{
 			Debug.Log("Animator MoveEntity called");
 			//From the ThirdPersonUserControls.cs script

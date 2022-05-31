@@ -242,6 +242,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Human",
+            "id": "63d794fb-bc49-4efe-95e9-079b6f59f658",
+            "actions": [
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "6bd0042e-91b3-49aa-83de-0a4c661c62d3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Walk",
+                    "type": "Button",
+                    "id": "433fe959-be6f-4f8f-872e-eba28c65183a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "75c77887-4704-4e5f-a51a-f8abb4105021",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b094e72f-be74-4764-acb3-dce012c46ef8",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -264,6 +264,54 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Human"",
+            ""id"": ""63d794fb-bc49-4efe-95e9-079b6f59f658"",
+            ""actions"": [
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""6bd0042e-91b3-49aa-83de-0a4c661c62d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Walk"",
+                    ""type"": ""Button"",
+                    ""id"": ""433fe959-be6f-4f8f-872e-eba28c65183a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""75c77887-4704-4e5f-a51a-f8abb4105021"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b094e72f-be74-4764-acb3-dce012c46ef8"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -280,6 +328,10 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         m_Ghost_Fly = m_Ghost.FindAction("Fly", throwIfNotFound: true);
         m_Ghost_Possess = m_Ghost.FindAction("Possess", throwIfNotFound: true);
         m_Ghost_Ability = m_Ghost.FindAction("Ability", throwIfNotFound: true);
+        // Human
+        m_Human = asset.FindActionMap("Human", throwIfNotFound: true);
+        m_Human_Crouch = m_Human.FindAction("Crouch", throwIfNotFound: true);
+        m_Human_Walk = m_Human.FindAction("Walk", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -449,6 +501,47 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         }
     }
     public GhostActions @Ghost => new GhostActions(this);
+
+    // Human
+    private readonly InputActionMap m_Human;
+    private IHumanActions m_HumanActionsCallbackInterface;
+    private readonly InputAction m_Human_Crouch;
+    private readonly InputAction m_Human_Walk;
+    public struct HumanActions
+    {
+        private @MainControls m_Wrapper;
+        public HumanActions(@MainControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Crouch => m_Wrapper.m_Human_Crouch;
+        public InputAction @Walk => m_Wrapper.m_Human_Walk;
+        public InputActionMap Get() { return m_Wrapper.m_Human; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(HumanActions set) { return set.Get(); }
+        public void SetCallbacks(IHumanActions instance)
+        {
+            if (m_Wrapper.m_HumanActionsCallbackInterface != null)
+            {
+                @Crouch.started -= m_Wrapper.m_HumanActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_HumanActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_HumanActionsCallbackInterface.OnCrouch;
+                @Walk.started -= m_Wrapper.m_HumanActionsCallbackInterface.OnWalk;
+                @Walk.performed -= m_Wrapper.m_HumanActionsCallbackInterface.OnWalk;
+                @Walk.canceled -= m_Wrapper.m_HumanActionsCallbackInterface.OnWalk;
+            }
+            m_Wrapper.m_HumanActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
+                @Walk.started += instance.OnWalk;
+                @Walk.performed += instance.OnWalk;
+                @Walk.canceled += instance.OnWalk;
+            }
+        }
+    }
+    public HumanActions @Human => new HumanActions(this);
     public interface IMainActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -462,5 +555,10 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         void OnFly(InputAction.CallbackContext context);
         void OnPossess(InputAction.CallbackContext context);
         void OnAbility(InputAction.CallbackContext context);
+    }
+    public interface IHumanActions
+    {
+        void OnCrouch(InputAction.CallbackContext context);
+        void OnWalk(InputAction.CallbackContext context);
     }
 }

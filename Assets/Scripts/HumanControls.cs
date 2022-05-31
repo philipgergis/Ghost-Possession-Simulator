@@ -98,14 +98,14 @@ public class HumanControls : ParentControls
         }
     }
 
-    public override void MoveEntity()
+    protected override void MoveEntity()
     {
         Debug.Log("Animator MoveEntity called");
         //From the ThirdPersonUserControls.cs script
         // read inputs
         float h = CrossPlatformInputManager.GetAxis("Horizontal");
         float v = CrossPlatformInputManager.GetAxis("Vertical");
-        bool crouch = Input.GetKey(KeyCode.C);
+        bool crouch = mainControls.Human.Crouch.IsPressed(); //Input.GetKey(KeyCode.C);
 
         // calculate move direction to pass to character
         if (m_Cam != null)
@@ -121,7 +121,7 @@ public class HumanControls : ParentControls
         }
         #if !MOBILE_INPUT
         // walk speed multiplier
-        if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
+        if (mainControls.Human.Walk.IsPressed()) m_Move *= 0.5f;
         #endif
 
         // convert the world relative moveInput vector into a local-relative

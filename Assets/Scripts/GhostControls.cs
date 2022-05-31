@@ -20,7 +20,7 @@ public class GhostControls : ParentControls
     }
 
     // Update is called once per frame
-    public override void MoveEntity()
+    protected override void MoveEntity()
     {
         if(inControl)
         {
