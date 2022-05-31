@@ -110,7 +110,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2692201659061041459}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f172379f4d6074bbd9a276e8a55a7553, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -128,7 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbb45ade728ce643b51003037755f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   turnSmoothTime: 0.1
   turnSmoothVelocity: 0
   adjustmentAngle: 0
