@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class InventoryControls : ParentControls
@@ -16,45 +17,13 @@ public class InventoryControls : ParentControls
     // current index in inventory
     protected int currentIndex = 0;
 
+    // list of objects
+    [ReadOnly] protected List<GameObject> invObjects;
+
     // Checks if full capacity is reached
     public bool RoomAvailable()
     {
         return inv.childCount < maxItems;
-    }
-
-    protected override void Possession()
-    {
-        
-        // ghost variable
-        Transform ghost = null;
-
-        // looks for a ghost in the child objects
-        foreach (Transform child in transform)
-        {
-            if (child.tag == "Ghost")
-            {
-                ghost = child;
-                break;
-            }
-        }
-
-        // if entity is in control, the possess button is pressed, and the ghost is a child, unpossess the target
-        if (inControl && mainControls.Main.Possess.triggered && ghost != null && rb.velocity == Vector3.zero)
-        {
-            // checks for objects the ghost cannot spawn over
-            Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
-
-            // if no objects blocking the way, unposssess target and change the camera
-            if (obstacles.Length == 0)
-            {
-                RevertHotbarSettings();
-                ghost.gameObject.SetActive(true);
-                ghost.GetComponent<ParentControls>().SetControl(true);
-                ghost.transform.parent = null;
-                CameraShift(ghost);
-                SetControl(false);
-            }
-        }
     }
 
     protected void RevertHotbarSettings()
@@ -121,9 +90,18 @@ public class InventoryControls : ParentControls
     {
         if (inv.childCount < maxItems)
         {
-            obj.transform.parent = inv;
-            obj.transform.position = transform.position + transform.forward + adjustment;
-            obj.SetActive(false);
+            for(int i = 0; i < maxItems; i++)
+            {
+                if(invObjects[i] == null)
+                {
+                    invObjects[i] = obj;
+                    obj.transform.parent = inv;
+                    obj.transform.position = transform.position + transform.forward + adjustment;
+                    obj.SetActive(false);
+                    break;
+                }
+            }
+            
         }
     }
 
@@ -141,14 +119,15 @@ public class InventoryControls : ParentControls
     // drop item
     public void DropItem(int index)
     {
-
         
-        Transform child = inv.GetChild(index);
-
-        if (child != null && Physics.OverlapSphere(child.position, 0.5f).Length == 0)
+        GameObject child = invObjects[index];
+        Debug.Log(child);
+        Debug.Log(child != null && Physics.OverlapSphere(child.transform.position, 0.5f).Length == 0);
+        if (child != null && Physics.OverlapSphere(child.transform.position, 0.5f).Length == 0)
         {
-            child.parent = null;
-            child.gameObject.SetActive(true);
+            invObjects[index] = null;
+            child.transform.parent = null;
+            child.SetActive(true);
         }
     }
 
@@ -168,7 +147,11 @@ public class InventoryControls : ParentControls
 
     protected virtual void Start()
     {
-        
+        invObjects = new List<GameObject>();
+        for(int i = 0; i < maxItems; i++)
+        {
+            invObjects.Add(null);
+        }
     }
 
 
@@ -202,5 +185,39 @@ public class InventoryControls : ParentControls
         HotbarUpdates();
     }
 
+    protected override void Possession()
+    {
+
+        // ghost variable
+        Transform ghost = null;
+
+        // looks for a ghost in the child objects
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "Ghost")
+            {
+                ghost = child;
+                break;
+            }
+        }
+
+        // if entity is in control, the possess button is pressed, and the ghost is a child, unpossess the target
+        if (inControl && mainControls.Main.Possess.triggered && ghost != null && rb.velocity == Vector3.zero)
+        {
+            // checks for objects the ghost cannot spawn over
+            Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
+
+            // if no objects blocking the way, unposssess target and change the camera
+            if (obstacles.Length == 0)
+            {
+                RevertHotbarSettings();
+                ghost.gameObject.SetActive(true);
+                ghost.GetComponent<ParentControls>().SetControl(true);
+                ghost.transform.parent = null;
+                CameraShift(ghost);
+                SetControl(false);
+            }
+        }
+    }
 
 }
