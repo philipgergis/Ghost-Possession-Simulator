@@ -49,7 +49,7 @@ public class ParentControls : MonoBehaviour
 
     // function used to move the entity based on wasd input
     // moves through rigidbody by setting velocity
-    protected virtual void MoveEntity()
+    public virtual void MoveEntity()
     {
         if(inControl)
         {
@@ -145,7 +145,7 @@ public class ParentControls : MonoBehaviour
 
 
     // handles other controls
-    protected void Update()
+    protected virtual void Update()
     {
         StartAbility();
         Possession();
