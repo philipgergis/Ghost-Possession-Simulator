@@ -30,6 +30,12 @@ public class DoorInteract : Interact
                     Debug.Log("Level Complete!");
                 }
 
+                // play sfx for opening door
+                if (TryGetComponent<AudioSource>(out AudioSource doorAudio))
+                {
+                    AudioSource.PlayClipAtPoint(doorAudio.clip, transform.position, 2.0f);
+                }
+
                 // destroys door to unlock it
                 Destroy(gameObject);
             }

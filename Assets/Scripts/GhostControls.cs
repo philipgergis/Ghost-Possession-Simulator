@@ -72,7 +72,7 @@ public class GhostControls : ParentControls
             if (possessions.Length > 0)
             {
                 // play possession sfx
-                AudioSource.PlayClipAtPoint(ghostAudio.clip, transform.position);   // for some reason ghostAudio.Play() doesnt work
+                AudioSource.PlayClipAtPoint(ghostAudio.clip, transform.position, 2.0f);   // for some reason ghostAudio.Play() doesnt work
 
                 // move ghost to above the possessed object, make the ghost its child, then switch controls, and change camera control
                 Collider entity = possessions[0];
