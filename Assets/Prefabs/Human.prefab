@@ -2745,7 +2745,6 @@ GameObject:
   - component: {fileID: 3506235048506429253}
   - component: {fileID: 2043573052415895072}
   - component: {fileID: 2548501811172345228}
-  - component: {fileID: 2548501811172345231}
   - component: {fileID: 1466655601}
   - component: {fileID: 1466655600}
   m_Layer: 7
@@ -2811,6 +2810,9 @@ MonoBehaviour:
   adjustmentAngle: 0
   cameraLookAt: {fileID: 373179649}
   speed: 5
+  maxItems: 5
+  inv: {fileID: 2548501811716139987}
+  adjustment: {x: 0, y: 1, z: 0}
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 5
@@ -2819,20 +2821,6 @@ MonoBehaviour:
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.1
---- !u!114 &2548501811172345231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4315423296443143679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3db50cd4fd4f24c4b8e058f173eb7708, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxItems: 5
-  inv: {fileID: 2548501811716139987}
 --- !u!54 &1466655601
 Rigidbody:
   m_ObjectHideFlags: 0
