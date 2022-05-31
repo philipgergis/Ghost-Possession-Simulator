@@ -6,6 +6,7 @@ using UnityEngine;
 public class InventoryControls : ParentControls
 {
     // Inventory holds up to 5 items
+    [Header("Inventory")]
     [Range(1,5)][SerializeField] protected int maxItems = 5;
 
     // Inventory child
@@ -19,6 +20,14 @@ public class InventoryControls : ParentControls
 
     // list of objects
     [ReadOnly] protected List<GameObject> invObjects;
+
+    // SFX
+    private AudioSource pickupAudio;
+    protected override void Awake()
+    {
+        base.Awake();
+        pickupAudio = GetComponent<AudioSource>();
+    }
 
     // Checks if full capacity is reached
     public bool RoomAvailable()
@@ -179,6 +188,7 @@ public class InventoryControls : ParentControls
 
         if (grabs.Length > 0 && RoomAvailable())
         {
+            AudioSource.PlayClipAtPoint(pickupAudio.clip, transform.position, 2.0f);
             AddItem(grabs[0].gameObject);
         }
     }

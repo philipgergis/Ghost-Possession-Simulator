@@ -6,7 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class HumanControls : InventoryControls
 {
-
+    [Header("Human Controls")]
     [SerializeField] float m_MovingTurnSpeed = 360;
     [SerializeField] float m_StationaryTurnSpeed = 180;
     [SerializeField] float m_JumpPower = 12f;

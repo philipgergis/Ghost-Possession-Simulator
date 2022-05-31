@@ -7,6 +7,7 @@ public class ParentControls : MonoBehaviour
 {
     protected Transform cam;
 
+    [Header("Parent Controls")]
     //public float speed = 6f;
     [SerializeField] protected float turnSmoothTime = 0.1f;
     [SerializeField] protected float turnSmoothVelocity;
