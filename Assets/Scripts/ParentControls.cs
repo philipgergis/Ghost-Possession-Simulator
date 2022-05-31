@@ -97,7 +97,7 @@ public class ParentControls : MonoBehaviour
         }
 
         // if entity is in control, the possess button is pressed, and the ghost is a child, unpossess the target
-        if (inControl && mainControls.Ghost.Possess.triggered && ghost != null)
+        if (inControl && mainControls.Main.Possess.triggered && ghost != null)
         {
             // checks for objects the ghost cannot spawn over
             Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
