@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Switches : MonoBehaviour
 {
+    // button object
+    [SerializeField] private Transform button;
+
+    // button adjustment value
+    [SerializeField] protected float buttonAdjustment = 0.01f;
+
     // determines if the switch is on or not
     protected bool on = false;
 
@@ -34,12 +40,19 @@ public class Switches : MonoBehaviour
 
     protected virtual void SwitchActivate()
     {
+        SwitchMovement(-buttonAdjustment);
         on = true;
     }
 
     protected virtual void SwitchDeactivate()
     {
+        SwitchMovement(buttonAdjustment);
         on = false;
+    }
+
+    protected void SwitchMovement(float upDown)
+    {
+        button.position = new Vector3(0,upDown,0) + button.position;
     }
 
 

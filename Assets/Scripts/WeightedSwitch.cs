@@ -24,6 +24,7 @@ public class WeightedSwitch : Switches
         TextUpdate();
         if(currentAmount >= amount)
         {
+            SwitchMovement(-buttonAdjustment);
             on = true;
             text.color = Color.yellow;
         }
@@ -35,6 +36,7 @@ public class WeightedSwitch : Switches
         TextUpdate();
         if (currentAmount < amount)
         {
+            SwitchMovement(buttonAdjustment);
             on = false;
         }
     }
