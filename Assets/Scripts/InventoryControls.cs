@@ -5,7 +5,7 @@ using UnityEngine;
 public class InventoryControls : ParentControls
 {
     // Inventory holds up to 5 items
-    [SerializeField] protected int maxItems = 5;
+    [Range(1,5)][SerializeField] protected int maxItems = 5;
 
     // Inventory child
     [SerializeField] protected Transform inv;
@@ -22,6 +22,65 @@ public class InventoryControls : ParentControls
         return inv.childCount < maxItems;
     }
 
+    protected override void Possession()
+    {
+        
+        // ghost variable
+        Transform ghost = null;
+
+        // looks for a ghost in the child objects
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "Ghost")
+            {
+                ghost = child;
+                break;
+            }
+        }
+
+        // if entity is in control, the possess button is pressed, and the ghost is a child, unpossess the target
+        if (inControl && mainControls.Main.Possess.triggered && ghost != null && rb.velocity == Vector3.zero)
+        {
+            // checks for objects the ghost cannot spawn over
+            Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
+
+            // if no objects blocking the way, unposssess target and change the camera
+            if (obstacles.Length == 0)
+            {
+                RevertHotbarSettings();
+                ghost.gameObject.SetActive(true);
+                ghost.GetComponent<ParentControls>().SetControl(true);
+                ghost.transform.parent = null;
+                CameraShift(ghost);
+                SetControl(false);
+            }
+        }
+    }
+
+    protected void RevertHotbarSettings()
+    {
+        HotbarManager.Instance.UpdateSlot(currentIndex, false, 2);
+        currentIndex = 0;
+        HotbarManager.Instance.UpdateSlot(currentIndex, true, 2);
+        ShowAccessibleSlots(true);
+    }
+
+    protected void ShowAccessibleSlots(bool show)
+    {
+        if(inControl)
+        {
+            for (int i = 0; i < maxItems; i++)
+            {
+                HotbarManager.Instance.UpdateSlot(i, show, 0);
+            }
+        }
+    }
+
+    protected void HotbarUpdates()
+    {
+        SelectSlot();
+        ShowAccessibleSlots(false);
+    }
 
     protected void SelectSlot()
     {
@@ -140,7 +199,7 @@ public class InventoryControls : ParentControls
     protected override void Update()
     {
         base.Update();
-        SelectSlot();
+        HotbarUpdates();
     }
 
 
