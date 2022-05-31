@@ -100,7 +100,6 @@ public class HumanControls : ParentControls
 
     public override void MoveEntity()
     {
-        Debug.Log("Animator MoveEntity called");
         //From the ThirdPersonUserControls.cs script
         // read inputs
         float h = CrossPlatformInputManager.GetAxis("Horizontal");
