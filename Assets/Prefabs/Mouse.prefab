@@ -131,6 +131,7 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   turnSmoothVelocity: 0
   adjustmentAngle: 0
+  cameraLookAt: {fileID: 3321210703171068809}
   speed: 5
 --- !u!1001 &2998824457926939667
 PrefabInstance:

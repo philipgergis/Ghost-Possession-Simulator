@@ -17,7 +17,6 @@ public class HumanControls : ParentControls
     [SerializeField] float m_MoveSpeedMultiplier = 1f;
     [SerializeField] float m_AnimSpeedMultiplier = 1f;
     [SerializeField] float m_GroundCheckDistance = 0.1f;
-    public Transform m_CameraLookAt;
 
     Rigidbody m_Rigidbody;
     Animator m_Animator;

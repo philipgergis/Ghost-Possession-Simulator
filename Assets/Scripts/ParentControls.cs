@@ -11,7 +11,7 @@ public class ParentControls : MonoBehaviour
     [SerializeField] protected float turnSmoothTime = 0.1f;
     [SerializeField] protected float turnSmoothVelocity;
     [SerializeField] protected float adjustmentAngle;
-
+    [SerializeField] protected Transform cameraLookAt;
 
     // boolean to check if player is controlling entity
     protected bool inControl = false;
@@ -116,7 +116,10 @@ public class ParentControls : MonoBehaviour
 
 
     
-
+    public Transform GetCameraLookAt()
+    {
+        return cameraLookAt;
+    }
 
     // makes camera follow right entity
     protected void CameraShift(Transform newObject)

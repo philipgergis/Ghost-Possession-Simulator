@@ -82,14 +82,7 @@ public class GhostControls : ParentControls
                 entity.GetComponent<ParentControls>().SetControl(true);
 
                 // if possessed object is a human, use its CameraLookAt transform instead of the human's transform (bc it's too low)
-                if (entity.tag == "Human")
-                {
-                    CameraShift(entity.GetComponent<HumanControls>().m_CameraLookAt);
-                }
-                else
-                {
-                    CameraShift(entity.transform);
-                }
+                CameraShift(entity.GetComponent<ParentControls>().GetCameraLookAt());
 
                 SetControl(false);
                 gameObject.SetActive(false);

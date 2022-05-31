@@ -24496,6 +24496,7 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   turnSmoothVelocity: 0
   adjustmentAngle: 90
+  cameraLookAt: {fileID: 3341833771761986383}
   speed: 6
 --- !u!136 &3341833771761986381
 CapsuleCollider:
