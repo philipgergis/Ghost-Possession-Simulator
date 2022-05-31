@@ -293,7 +293,7 @@ public class HumanControls : InventoryControls
         }
         else if (mainControls.Main.Drop.triggered && inControl)
         {
-            DropObject();
+            DropItem(currentIndex);
         }
     }
 
