@@ -43,7 +43,7 @@ public class InventoryControls : ParentControls
         }
         HotbarManager.Instance.UpdateSlot(currentIndex, false, 2);
         currentIndex = 0;
-        HotbarManager.Instance.UpdateSlot(currentIndex, true, 2);
+        //HotbarManager.Instance.UpdateSlot(currentIndex, true, 2);
         ShowAccessibleSlots(true);
     }
 
