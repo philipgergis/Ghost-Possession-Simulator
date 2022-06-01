@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ParentControls : MonoBehaviour
 {
+    [SerializeField] protected bool needsTaming;
+
     protected Transform cam;
 
     [Header("Parent Controls")]
@@ -33,6 +35,15 @@ public class ParentControls : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
+    public bool TameType()
+    {
+        return needsTaming;
+    }
+
+    public bool CheckControl()
+    {
+        return inControl;
+    }
 
     // Enable parentControls
     private void OnEnable()

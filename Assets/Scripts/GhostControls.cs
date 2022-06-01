@@ -47,16 +47,6 @@ public class GhostControls : ParentControls
                     rb.MovePosition(transform.position + -transform.right * speed * Time.fixedDeltaTime);
                 }
                 
-                //if (direction.x == 0 && direction.z == 0)
-                //{
-                //    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(0, upDown, 0);
-                //    rb.MovePosition(moveDir.normalized * 2f * Time.fixedDeltaTime);
-                //}
-                //else
-                //{
-                //    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * new Vector3(0, upDown, 1);
-                //    rb.MovePosition(moveDir.normalized * 2f * Time.fixedDeltaTime);
-                //}
             }
         }
     }
@@ -69,7 +59,7 @@ public class GhostControls : ParentControls
         {
             // checks for any possible possessable objects and possesses one if length is > 0
             Collider[] possessions = Physics.OverlapBox(transform.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Possess", "PossessGrab"));
-            if (possessions.Length > 0)
+            if (possessions.Length > 0 && (!possessions[0].GetComponent<ParentControls>().TameType() || possessions[0].GetComponentInChildren<TameableBehavior>().CheckTame()))
             {
                 // play possession sfx
                 AudioSource.PlayClipAtPoint(ghostAudio.clip, transform.position, 2.0f);   // for some reason ghostAudio.Play() doesnt work
@@ -77,7 +67,6 @@ public class GhostControls : ParentControls
                 // move ghost to above the possessed object, make the ghost its child, then switch controls, and change camera control
                 Collider entity = possessions[0];
                 transform.position = entity.transform.position + new Vector3(0, 2, 0);
-                transform.forward = entity.transform.forward;
                 transform.parent = entity.transform;
                 entity.GetComponent<ParentControls>().SetControl(true);
 
