@@ -19,15 +19,15 @@ public class InanimateControls : ParentControls
 
             if (direction.magnitude >= 0.1f)
             {
-                //float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
 
-                ////targetAngle needs to be + 90 degrees because for some reason the player model is always 90 degrees off
-                //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle + adjustmentAngle, ref turnSmoothVelocity, turnSmoothTime);
+                //targetAngle needs to be + 90 degrees because for some reason the player model is always 90 degrees off
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle + adjustmentAngle, ref turnSmoothVelocity, turnSmoothTime);
 
-                //transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
                 //rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
-                rb.AddForce(direction * speed);
+                rb.AddForce(transform.position + transform.forward * speed);
                 currentTime = maxTime;
             }
         }
