@@ -92,8 +92,9 @@ GameObject:
   - component: {fileID: 6620836834266834396}
   - component: {fileID: 6620836834266972001}
   - component: {fileID: 6620836834266972000}
-  - component: {fileID: 4588517002848468020}
-  m_Layer: 7
+  - component: {fileID: 988012513399741736}
+  - component: {fileID: 53724639374717428}
+  m_Layer: 10
   m_Name: Cheese
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,8 +145,8 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
---- !u!114 &4588517002848468020
+  m_CollisionDetection: 1
+--- !u!114 &988012513399741736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,14 +155,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 6620836834266872316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdbb45ade728ce643b51003037755f84, type: 3}
+  m_Script: {fileID: 11500000, guid: c181afb4912591f45b9fe7ed3e8d50a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  needsTaming: 0
   turnSmoothTime: 0.1
   turnSmoothVelocity: 0
   adjustmentAngle: 0
   cameraLookAt: {fileID: 6620836834266834396}
-  speed: 0.5
+  speed: 100
+  maxTime: 50
+--- !u!114 &53724639374717428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6620836834266872316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e55be6c08f0db4db960efc4f2a3933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemImage: {fileID: 2800000, guid: 5095aafa9a3536a44a811554c4a2b889, type: 3}
 --- !u!1001 &2766801250424694094
 PrefabInstance:
   m_ObjectHideFlags: 0
