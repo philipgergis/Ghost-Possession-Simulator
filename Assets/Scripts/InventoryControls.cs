@@ -185,7 +185,6 @@ public class InventoryControls : ParentControls
     {
         // Gets object in an area, if they are grabbable it grabs the first one from the list
         Collider[] grabs = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Grab", "PossessGrab"));
-
         if (grabs.Length > 0 && RoomAvailable())
         {
             AudioSource.PlayClipAtPoint(pickupAudio.clip, transform.position, 2.0f);
