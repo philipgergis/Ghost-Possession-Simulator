@@ -56,6 +56,7 @@ public class InanimateControls : ParentControls
             Collider[] obstacles = Physics.OverlapBox(transform.position + Vector3.up, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
 
             // if no objects blocking the way, unposssess target and change the camera
+            // makes it so it checks above inanimate object for obstacles instead of the ghost position to account for object rotating while moving
             if (obstacles.Length == 0)
             {
                 ghost.gameObject.SetActive(true);

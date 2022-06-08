@@ -35,11 +35,13 @@ public class ParentControls : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
+    // checks if it is a type that needs taming
     public bool TameType()
     {
         return needsTaming;
     }
 
+    // checks if object is incontrol
     public bool CheckControl()
     {
         return inControl;
