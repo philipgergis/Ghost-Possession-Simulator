@@ -4,31 +4,38 @@ using UnityEngine;
 
 public class GhostControls : ParentControls
 {
-    //[SerializeField] protected CharacterController controller;
+    // sound audio
     private AudioSource ghostAudio;
 
-    // make it so ghost is controlled as first entity
+    // needed for sound
     protected override void Awake()
     {
         base.Awake();
         ghostAudio = GetComponent<AudioSource>();
     }
 
+    // make it so ghost is controlled as first entity
     private void Start()
     {
         inControl = true;
     }
 
-    // Update is called once per frame
+
+    // Moves entity using three vector inputs
     protected override void MoveEntity()
     {
+        // check for
         if(inControl)
         {
+            // vector3 inputs for each axis
             float leftRight = mainControls.Main.Move.ReadValue<Vector3>().x; 
             float forwardBackward = mainControls.Main.Move.ReadValue<Vector3>().z; 
             float upDown = mainControls.Ghost.Fly.ReadValue<Vector3>().y; 
 
+            // direction of movement based on three vector3 inputs
             Vector3 direction = new Vector3(leftRight, upDown, forwardBackward).normalized;
+
+            // if direction is not 0, then executemovement
             if (direction.magnitude >= 0.1f)
             {
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -37,6 +44,7 @@ public class GhostControls : ParentControls
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle + 90f, ref turnSmoothVelocity, turnSmoothTime);
 
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
 
                 if(upDown != 0)
                 {
@@ -47,6 +55,12 @@ public class GhostControls : ParentControls
                     rb.MovePosition(transform.position + -transform.right * speed * Time.fixedDeltaTime);
                 }
                 
+            }
+
+            // when there is no input, ensure ghost is not moving
+            else
+            {
+                rb.velocity = Vector3.zero;
             }
         }
     }
