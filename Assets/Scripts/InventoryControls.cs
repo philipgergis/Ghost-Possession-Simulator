@@ -23,6 +23,8 @@ public class InventoryControls : ParentControls
 
     // SFX
     private AudioSource pickupAudio;
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -35,6 +37,8 @@ public class InventoryControls : ParentControls
         return inv.childCount < maxItems;
     }
 
+
+    // Disables all images, the selection border, turns on slashes, and puts current index to 0
     protected void RevertHotbarSettings()
     {
         for(int i = 0; i < maxItems; i++)
@@ -47,6 +51,7 @@ public class InventoryControls : ParentControls
         ShowAccessibleSlots(true);
     }
 
+    // removes crosses from available inventory slows, or turns them back on
     protected void ShowAccessibleSlots(bool show)
     {
         if(inControl)
@@ -58,6 +63,7 @@ public class InventoryControls : ParentControls
         }
     }
 
+    // if there is an item in a slow it shows the image
     protected void ShowItemImages()
     {
         if(inControl)
@@ -73,6 +79,7 @@ public class InventoryControls : ParentControls
         } 
     }
 
+    // shows which slot is selected, shows all items, then removes slashes when needed
     protected void HotbarUpdates()
     {
         SelectSlot();
@@ -80,12 +87,19 @@ public class InventoryControls : ParentControls
         ShowAccessibleSlots(false);
     }
 
+
+    // uses input from scroll wheel to change selected slot
     protected void SelectSlot()
     {
         if(inControl)
         {
+            // y value from input is 120, 0, or -120
             float scroll = mainControls.Main.Inventory.ReadValue<Vector2>().y;
+
+            // temporarily turn off selection
             HotbarManager.Instance.UpdateSlot(currentIndex, false, 2);
+
+            // moves selection to right if scroll up and vice versa
             if (scroll > 0)
             {
                 ChangeIndex(currentIndex - 1);
@@ -94,10 +108,13 @@ public class InventoryControls : ParentControls
             {
                 ChangeIndex(currentIndex + 1);
             }
+
+            // turn selection border on new selected slot
             HotbarManager.Instance.UpdateSlot(currentIndex, true, 2);
         }  
     }
 
+    // makes sure index is not negeative or >= maxItems
     protected void ChangeIndex(int index)
     {
         if(index < 0)
@@ -121,8 +138,10 @@ public class InventoryControls : ParentControls
         {
             for(int i = 0; i < maxItems; i++)
             {
+                // if slot is full do not add item
                 if(invObjects[i] == null)
                 {
+                    // makes item child of inventory, then sets its position in front of entity, then sets it to false
                     invObjects[i] = obj;
                     obj.transform.parent = inv;
                     obj.transform.position = transform.position + transform.forward + adjustment;
@@ -133,6 +152,7 @@ public class InventoryControls : ParentControls
             
         }
     }
+
 
     // Delete item from inventory
     // Add item to inventory
@@ -150,13 +170,15 @@ public class InventoryControls : ParentControls
     }
 
 
-    // drop item
+    // drop item in front of entity
     public void DropItem(int index)
     {
-        
         GameObject child = invObjects[index];
+
+        // do not drop if slot empty or if there is something in the way of spawning the item
         if (child != null && Physics.OverlapSphere(child.transform.position, 0.5f).Length == 0)
         {
+            // remove image from hotbar and inventory array, make object parentless, and make it active
             HotbarManager.Instance.UpdateSlot(currentIndex, false, 3);
             invObjects[index] = null;
             child.transform.parent = null;
@@ -164,13 +186,13 @@ public class InventoryControls : ParentControls
         }
     }
 
-    // checks if an item is in the inventory
+    // gets an item if it is in the inventory
     public GameObject GetCurrentItem()
     {
         return invObjects[currentIndex];
     }
 
-
+    // make an array the length of the items the entity can carry
     protected virtual void Start()
     {
         invObjects = new List<GameObject>();
@@ -180,11 +202,13 @@ public class InventoryControls : ParentControls
         }
     }
 
-
+    // grabs object if there is room
     protected void GrabObject()
     {
         // Gets object in an area, if they are grabbable it grabs the first one from the list
         Collider[] grabs = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Grab", "PossessGrab"));
+
+        // if an object was detected add if there is space
         if (grabs.Length > 0 && RoomAvailable())
         {
             AudioSource.PlayClipAtPoint(pickupAudio.clip, transform.position, 2.0f);
@@ -192,7 +216,7 @@ public class InventoryControls : ParentControls
         }
     }
 
-    // Ability to call for special ability
+    // Ability to call for special ability, add grab object to it
     protected override void StartAbility()
     {
         if (mainControls.Main.Ability.triggered && inControl)
@@ -205,12 +229,14 @@ public class InventoryControls : ParentControls
         }
     }
 
+    // update hot bar
     protected override void Update()
     {
         base.Update();
         HotbarUpdates();
     }
 
+    // unpossess mechanic, added so you can revert the hotbar when going to be a ghost
     protected override void Possession()
     {
 
@@ -236,6 +262,7 @@ public class InventoryControls : ParentControls
             // if no objects blocking the way, unposssess target and change the camera
             if (obstacles.Length == 0)
             {
+                // added revert hot bar settings to unpossession
                 RevertHotbarSettings();
                 ghost.gameObject.SetActive(true);
                 ghost.GetComponent<ParentControls>().SetControl(true);
