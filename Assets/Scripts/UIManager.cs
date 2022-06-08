@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
+    // Load asylum level
     public void LoadAsylum()
     {
         SceneManager.LoadScene("Asylum Level");
