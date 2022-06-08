@@ -89,7 +89,7 @@ public class HumanControls : InventoryControls
         // read inputs
         float h = CrossPlatformInputManager.GetAxis("Horizontal");
         float v = CrossPlatformInputManager.GetAxis("Vertical");
-        bool crouch = mainControls.Human.Crouch.IsPressed(); //Input.GetKey(KeyCode.C);
+        bool crouch = false; //mainControls.Human.Crouch.IsPressed(); //Input.GetKey(KeyCode.C);
 
         // calculate move direction to pass to character
         if (m_Cam != null)
@@ -302,10 +302,12 @@ public class HumanControls : InventoryControls
     protected override void Update()
     {
         base.Update();
-        if (!m_Jump)
-        {
-            m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-        }
+
+
+        //if (!m_Jump)
+        //{
+        //    m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+        //}
     }
 
     //From the ThirdPersonUserControls.cs script
