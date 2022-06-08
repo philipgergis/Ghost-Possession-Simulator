@@ -33,4 +33,39 @@ public class InanimateControls : ParentControls
             currentTime--;
         }
     }
+
+    protected override void Possession()
+    {
+        // ghost variable
+        Transform ghost = null;
+
+        // looks for a ghost in the child objects
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "Ghost")
+            {
+                ghost = child;
+                break;
+            }
+        }
+
+        // if entity is in control, the possess button is pressed, and the ghost is a child, unpossess the target
+        if (inControl && mainControls.Main.Possess.triggered && ghost != null)
+        {
+            // checks for objects the ghost cannot spawn over
+            Collider[] obstacles = Physics.OverlapBox(transform.position + Vector3.up, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
+
+            // if no objects blocking the way, unposssess target and change the camera
+            if (obstacles.Length == 0)
+            {
+                ghost.gameObject.SetActive(true);
+                ghost.GetComponent<ParentControls>().SetControl(true);
+                ghost.transform.parent = null;
+                ghost.transform.position = transform.position + Vector3.up;
+                ghost.rotation = new Quaternion(0, transform.rotation.y, 0, 0);
+                CameraShift(ghost);
+                SetControl(false);
+            }
+        }
+    }
 }
