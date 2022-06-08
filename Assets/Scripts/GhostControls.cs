@@ -45,7 +45,7 @@ public class GhostControls : ParentControls
 
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-
+                // cant fly and move at the same time
                 if(upDown != 0)
                 {
                     rb.MovePosition(transform.position + new Vector3(0, upDown * speed * Time.fixedDeltaTime, 0));
@@ -87,6 +87,7 @@ public class GhostControls : ParentControls
                 // if possessed object is a human, use its CameraLookAt transform instead of the human's transform (bc it's too low)
                 CameraShift(entity.GetComponent<ParentControls>().GetCameraLookAt());
 
+                // turn off ghost
                 SetControl(false);
                 gameObject.SetActive(false);
             }
