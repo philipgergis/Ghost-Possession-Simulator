@@ -323,6 +323,8 @@ public class HumanControls : InventoryControls
         else
         {
             m_Rigidbody.velocity = new Vector3(0, m_Rigidbody.velocity.y, 0);
+            m_Animator.SetFloat("Forward", 0f, 0.1f, Time.deltaTime);
+            m_Animator.SetFloat("Turn", 0f, 0.1f, Time.deltaTime);
         }
         
     }
