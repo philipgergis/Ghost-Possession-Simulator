@@ -16,7 +16,7 @@ public class Switches : MonoBehaviour
     // when an object is on the switch it stays on
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Possess" || other.tag == "Human")
+        if(other.tag == "Possess" || other.tag == "Human" || other.tag == "PossessGrab")
         {
             SwitchActivate();
         }
@@ -26,7 +26,7 @@ public class Switches : MonoBehaviour
     // when a player leaves the switch it turns off
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Possess" || other.tag == "Human")
+        if (other.tag == "Possess" || other.tag == "Human" || other.tag == "PossessGrab")
         {
             SwitchDeactivate();
         }
@@ -38,18 +38,21 @@ public class Switches : MonoBehaviour
         return on;
     }
 
+    // adjusts button position and makes switch true
     protected virtual void SwitchActivate()
     {
         SwitchMovement(-buttonAdjustment);
         on = true;
     }
 
+    // adjusts button position and makes switch false
     protected virtual void SwitchDeactivate()
     {
         SwitchMovement(buttonAdjustment);
         on = false;
     }
 
+    // moves switch button up or down
     protected void SwitchMovement(float upDown)
     {
         button.position = new Vector3(0,upDown,0) + button.position;
