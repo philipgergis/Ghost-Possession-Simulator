@@ -8,6 +8,7 @@ TagManager:
   - Human
   - Possess
   - TPC
+  - PossessGrab
   layers:
   - Default
   - TransparentFX

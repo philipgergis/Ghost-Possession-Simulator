@@ -83,7 +83,12 @@ public class ParentControls : MonoBehaviour
 
                 rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
             }
+            else
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
+        
     }
 
 

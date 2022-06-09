@@ -52,6 +52,7 @@ public class GhostControls : ParentControls
                 }
                 else
                 {
+                    rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                     rb.MovePosition(transform.position + -transform.right * speed * Time.fixedDeltaTime);
                 }
                 
