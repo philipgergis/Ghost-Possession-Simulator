@@ -12755,7 +12755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6397417005014112127, guid: 6b468a6e41b954645822ff416f5ceb31, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.660932
+      value: 4.124459
       objectReference: {fileID: 0}
     - target: {fileID: 6397417005014112127, guid: 6b468a6e41b954645822ff416f5ceb31, type: 3}
       propertyPath: m_LocalScale.z
@@ -12767,7 +12767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6397417005014112127, guid: 6b468a6e41b954645822ff416f5ceb31, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.5643654
+      value: 5.2961
       objectReference: {fileID: 0}
     - target: {fileID: 6397417005014112127, guid: 6b468a6e41b954645822ff416f5ceb31, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15986,7 +15986,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1521558361}
-  m_LocalRotation: {x: 0.14936583, y: -0.021570046, z: 0.0032591724, w: 0.98854136}
+  m_LocalRotation: {x: 0.14936583, y: -0.021570062, z: 0.0032591755, w: 0.98854136}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -18079,7 +18079,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674494405}
-  m_LocalRotation: {x: 0.17121805, y: -0.021492617, z: 0.0037359912, w: 0.98499167}
+  m_LocalRotation: {x: 0.17121805, y: -0.021492634, z: 0.0037359917, w: 0.98499167}
   m_LocalPosition: {x: 0.2370629, y: 4.228926, z: -4.6400776}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -22800,7 +22800,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2058356709}
-  m_LocalRotation: {x: 0.18517596, y: -0.021437408, z: 0.004040551, w: 0.98246324}
+  m_LocalRotation: {x: 0.18517596, y: -0.021437448, z: 0.004040558, w: 0.98246324}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
