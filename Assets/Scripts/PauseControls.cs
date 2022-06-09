@@ -27,12 +27,23 @@ public class PauseControls : MonoBehaviour
         paused = !paused;
     }
 
+    // Enable controls
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+
+    // disable controls
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
+
     private void Update()
     {
-        Debug.Log(controls.Ghost.Possess.triggered);
-        if(false)
+        if(controls.Main.Pause.triggered)
         {
-            Debug.Log("Here");
             PauseGame();
         }
     }
