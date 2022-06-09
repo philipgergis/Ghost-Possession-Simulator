@@ -17,8 +17,6 @@ public class NoteInteract : Interact
 
     public override void Interaction(GameObject obj)
     {
-        Debug.Log(obj);
-        Debug.Log("note interact");
         note.SetActive(true);
     }
 
