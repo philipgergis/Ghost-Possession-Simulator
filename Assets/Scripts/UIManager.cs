@@ -22,4 +22,10 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Witch Level");
     }
+
+    public void LoadMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Start Menu");
+    }
 }

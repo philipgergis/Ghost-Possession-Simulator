@@ -4,25 +4,34 @@ using UnityEngine;
 
 public class PauseControls : MonoBehaviour
 {
+    // input action controls
     private MainControls controls;
+
+    // if game is paused
     private bool paused = false;
 
+    // pause menu
+    [SerializeField] GameObject pauseMenu;
 
+
+    // initiate controls
     private void Awake()
     {
         controls = new MainControls();
     }
 
-
-    private void PauseGame()
+    // pause game and unpause
+    public void PauseGame()
     {
         if(paused)
         {
             Time.timeScale = 1f;
+            pauseMenu.SetActive(false);
         }
         else
         {
             Time.timeScale = 0f;
+            pauseMenu.SetActive(true);
         }
         paused = !paused;
     }
@@ -40,6 +49,7 @@ public class PauseControls : MonoBehaviour
         controls.Disable();
     }
 
+    // pause game if key is triggered
     private void Update()
     {
         if(controls.Main.Pause.triggered)
