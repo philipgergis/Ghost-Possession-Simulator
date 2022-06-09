@@ -53,7 +53,7 @@ public class InanimateControls : ParentControls
         if (inControl && mainControls.Main.Possess.triggered && ghost != null)
         {
             // checks for objects the ghost cannot spawn over
-            Collider[] obstacles = Physics.OverlapBox(transform.position + Vector3.up, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
+            Collider[] obstacles = Physics.OverlapSphere(ghost.position, radiusDetect, LayerMask.GetMask("Anti-Ghost"));
 
             // if no objects blocking the way, unposssess target and change the camera
             // makes it so it checks above inanimate object for obstacles instead of the ghost position to account for object rotating while moving
