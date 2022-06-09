@@ -16,7 +16,7 @@ public class Switches : MonoBehaviour
     // when an object is on the switch it stays on
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Possess" || other.tag == "Human" || other.tag == "PossessGrab")
+        if(other.tag == "Possess" || other.tag == "Human" )
         {
             SwitchActivate();
         }
@@ -26,7 +26,7 @@ public class Switches : MonoBehaviour
     // when a player leaves the switch it turns off
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Possess" || other.tag == "Human" || other.tag == "PossessGrab")
+        if (other.tag == "Possess" || other.tag == "Human" )
         {
             SwitchDeactivate();
         }

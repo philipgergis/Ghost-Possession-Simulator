@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7633970136296218682}
   m_Layer: 10
   m_Name: Key New
-  m_TagString: Possess
+  m_TagString: PossessGrab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
