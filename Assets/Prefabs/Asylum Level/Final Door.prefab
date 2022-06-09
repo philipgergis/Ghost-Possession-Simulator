@@ -543,4 +543,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finalDoor: 1
+  endMenu: {fileID: 0}
   key: {fileID: 0}

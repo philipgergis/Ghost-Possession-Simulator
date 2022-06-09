@@ -85,6 +85,9 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 256
+  interactMask:
+    serializedVersion: 2
+    m_Bits: 8192
   speed: 100
   maxTime: 50
 --- !u!65 &-7633970136296218682

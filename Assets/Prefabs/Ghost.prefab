@@ -24503,6 +24503,9 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 1152
+  interactMask:
+    serializedVersion: 2
+    m_Bits: 8192
   speed: 6
 --- !u!136 &3341833771761986381
 CapsuleCollider:

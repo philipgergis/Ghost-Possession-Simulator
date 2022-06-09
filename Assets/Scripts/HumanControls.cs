@@ -34,14 +34,11 @@ public class HumanControls : InventoryControls
     private Vector3 m_CamForward;	// The current forward direction of the camera
     private Vector3 m_Move;
     private bool m_Jump;			// the world-relative desired move direction, calculated from the camForward and user input.
-    private LayerMask doorMask;
 
     // get inventory of player
     protected override void Start()
     {
         base.Start();
-
-        doorMask = LayerMask.GetMask("Door");
 
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -72,13 +69,13 @@ public class HumanControls : InventoryControls
     protected void HumanInteract()
     {
         // gets a list of doors in the area, and interacts with the first one from the list
-        Collider[] doors = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, doorMask);
+        Collider[] doors = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, interactMask);
 
         if (doors.Length > 0)
         {
             foreach (Collider col in doors)
             {
-                DoorInteract door = col.GetComponent<DoorInteract>();
+                Interact door = col.GetComponent<Interact>();
                 door.Interaction(gameObject);
             }
         }
@@ -287,18 +284,18 @@ public class HumanControls : InventoryControls
         }
     }
 
-    protected override void StartAbility()
-    {
-        if (mainControls.Main.Ability.triggered && inControl)
-        {
-            HumanInteract();
-            GrabObject();
-        }
-        else if (mainControls.Main.Drop.triggered && inControl)
-        {
-            DropItem(currentIndex);
-        }
-    }
+    //protected override void StartAbility()
+    //{
+    //    if (mainControls.Main.Ability.triggered && inControl)
+    //    {
+    //        GetInteraction();
+    //        GrabObject();
+    //    }
+    //    else if (mainControls.Main.Drop.triggered && inControl)
+    //    {
+    //        DropItem(currentIndex);
+    //    }
+    //}
 
 
     //From the ThirdPersonUserControls.cs script

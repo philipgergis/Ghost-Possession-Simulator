@@ -18,6 +18,7 @@ public class ParentControls : MonoBehaviour
     [SerializeField] protected Transform cameraLookAt;
     [SerializeField] protected float radiusDetect = 0.35f;
     [SerializeField] protected LayerMask mask;
+    [SerializeField] protected LayerMask interactMask;
 
     // boolean to check if player is controlling entity
     protected bool inControl = false;
@@ -162,7 +163,30 @@ public class ParentControls : MonoBehaviour
     // used when entities have special abilities
     protected virtual void StartAbility()
     {
+        if(mainControls.Main.Ability.triggered && inControl)
+        {
+            GetInteraction();
+        }
+    }
 
+
+    protected void GetInteraction()
+    {
+        Debug.Log("GetInteraction");
+
+        // gets a list of doors in the area, and interacts with the first one from the list
+        Collider[] interacts = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, interactMask);
+
+        foreach(Collider col in interacts)
+        {
+            Debug.Log(col.name);
+        }
+
+        if (interacts.Length > 0)
+        {
+            Interact inter = interacts[0].GetComponent<Interact>();
+            inter.Interaction(gameObject);
+        }
     }
 
 

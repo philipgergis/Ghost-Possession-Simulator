@@ -11,6 +11,7 @@ public class InanimateControls : ParentControls
     private float currentTime = 0;
 
 
+
     protected override void MoveEntity()
     {
         // only move if the current time has run out

@@ -6,6 +6,7 @@ public class DoorInteract : Interact
 {
     // Decides if this door is the final door in the level
     [SerializeField] private bool finalDoor;
+    [SerializeField] private GameObject endMenu;
 
     // Key needed to unlock the door
     [SerializeField] private GameObject key;
@@ -27,7 +28,7 @@ public class DoorInteract : Interact
                 // ends game if door is final door
                 if(finalDoor)
                 {
-                    Debug.Log("Level Complete!");
+                    endMenu.SetActive(true);
                 }
 
                 // play sfx for opening door

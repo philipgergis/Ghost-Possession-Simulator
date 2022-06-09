@@ -189,6 +189,9 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 256
+  interactMask:
+    serializedVersion: 2
+    m_Bits: 8192
   speed: 5
   maxItems: 1
   inv: {fileID: 2593646167795109814}

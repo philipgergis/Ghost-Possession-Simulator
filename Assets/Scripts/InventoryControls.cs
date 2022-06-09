@@ -238,8 +238,10 @@ public class InventoryControls : ParentControls
     // Ability to call for special ability, add grab object to it
     protected override void StartAbility()
     {
+
         if (mainControls.Main.Ability.triggered && inControl)
         {
+            GetInteraction();
             GrabObject();
         }
         else if(mainControls.Main.Drop.triggered && inControl)
