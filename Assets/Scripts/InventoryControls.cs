@@ -40,6 +40,17 @@ public class InventoryControls : ParentControls
         return inv.childCount < maxItems;
     }
 
+    public bool ItemExists(GameObject item)
+    {
+        for(int i = 0; i < maxItems; i++)
+        {
+            if(item == invObjects[i])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // Disables all images, the selection border, turns on slashes, and puts current index to 0
     protected void RevertHotbarSettings()
@@ -55,7 +66,7 @@ public class InventoryControls : ParentControls
     }
 
     // removes crosses from available inventory slows, or turns them back on
-    protected void ShowAccessibleSlots(bool show)
+    public void ShowAccessibleSlots(bool show)
     {
         if(inControl)
         {
@@ -67,7 +78,7 @@ public class InventoryControls : ParentControls
     }
 
     // if there is an item in a slow it shows the image
-    protected void ShowItemImages()
+    public void ShowItemImages()
     {
         if(inControl)
         {
@@ -79,15 +90,15 @@ public class InventoryControls : ParentControls
                     HotbarManager.Instance.UpdateSlot(i, true, 3);
                 }
             }
-        } 
+        }
     }
 
     // shows which slot is selected, shows all items, then removes slashes when needed
     protected void HotbarUpdates()
     {
         SelectSlot();
-        ShowItemImages();
-        ShowAccessibleSlots(false);
+        //ShowItemImages();
+        //ShowAccessibleSlots(false);
     }
 
 
@@ -149,6 +160,8 @@ public class InventoryControls : ParentControls
                     obj.transform.parent = inv;
                     obj.transform.position = transform.position + transform.forward + adjustment;
                     obj.SetActive(false);
+                    HotbarManager.Instance.SetSlotImage(i, invObjects[i].GetComponent<Grabbables>().GetImage());
+                    HotbarManager.Instance.UpdateSlot(i, true, 3);
                     break;
                 }
             }
@@ -165,6 +178,8 @@ public class InventoryControls : ParentControls
         {
             if(invObjects[i] == obj)
             {
+                HotbarManager.Instance.UpdateSlot(i, false, 3);
+                HotbarManager.Instance.SetSlotImage(i, null);
                 invObjects[i] = null;
                 HotbarManager.Instance.UpdateSlot(i, false, 3);
                 Destroy(obj);
@@ -183,6 +198,7 @@ public class InventoryControls : ParentControls
         {
             // remove image from hotbar and inventory array, make object parentless, and make it active
             HotbarManager.Instance.UpdateSlot(currentIndex, false, 3);
+            HotbarManager.Instance.SetSlotImage(index, null);
             invObjects[index] = null;
             child.transform.parent = null;
             child.SetActive(true);

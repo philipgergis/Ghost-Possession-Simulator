@@ -88,6 +88,14 @@ public class GhostControls : ParentControls
                 // if possessed object is a human, use its CameraLookAt transform instead of the human's transform (bc it's too low)
                 CameraShift(entity.GetComponent<ParentControls>().GetCameraLookAt());
 
+                // update inventory if inventory item
+                InventoryControls invCheck = entity.GetComponent<InventoryControls>();
+                if (invCheck != null)
+                {
+                    invCheck.ShowAccessibleSlots(false);
+                    invCheck.ShowItemImages();
+                }
+
                 // turn off ghost
                 SetControl(false);
                 gameObject.SetActive(false);

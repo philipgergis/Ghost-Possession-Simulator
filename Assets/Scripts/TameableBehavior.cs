@@ -19,6 +19,13 @@ public class TameableBehavior : MonoBehaviour
     // orb to convey object is untamed
     [SerializeField] private GameObject notTamed;
 
+    // inventory controller
+    private InventoryControls _controller;
+
+    private void Awake()
+    {
+        _controller = transform.parent.GetComponent<InventoryControls>();    
+    }
 
     private void FixedUpdate()
     {
@@ -65,6 +72,13 @@ public class TameableBehavior : MonoBehaviour
                 tamed.SetActive(true);
                 return true;
             }
+        }
+
+        if(_controller.ItemExists(tamingItem))
+        {
+            notTamed.SetActive(false);
+            tamed.SetActive(true);
+            return true;
         }
 
         // make certain orbs glow to show not tamed

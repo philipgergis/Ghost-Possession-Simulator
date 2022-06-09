@@ -16,14 +16,12 @@ public class SwitchController : MonoBehaviour
     // activates item if switches are all on
     void Update()
     {
-        if(CheckAllSwitches())
+        if (CheckAllSwitches())
         {
-            if (item != null)
-            {
-                // add item = null so switch doesnt activate item when in entity inventory
-                item.SetActive(true);
-                item = null;
-            }
+            // add item = null so switch doesnt activate item when in entity inventory
+            item.SetActive(true);
+            item = null;
+            gameObject.SetActive(false);
         }
     }
 

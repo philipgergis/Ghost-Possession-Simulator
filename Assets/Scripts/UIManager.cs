@@ -16,4 +16,10 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Asylum Level");
     }
+
+    // load witch level
+    public void LoadWitch()
+    {
+        SceneManager.LoadScene("Witch Level");
+    }
 }
