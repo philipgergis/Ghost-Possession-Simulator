@@ -7,6 +7,10 @@ public class SwitchController : MonoBehaviour
     // gets the switches needed to activate a certain event
     [SerializeField] private Switches[] switches;
 
+
+    // turn item on or off
+    [SerializeField] private bool on = true; 
+
     // item the switches release
     [SerializeField] private GameObject item;
 
@@ -19,7 +23,7 @@ public class SwitchController : MonoBehaviour
         if (CheckAllSwitches())
         {
             // add item = null so switch doesnt activate item when in entity inventory
-            item.SetActive(true);
+            item.SetActive(on);
             item = null;
             gameObject.SetActive(false);
         }
