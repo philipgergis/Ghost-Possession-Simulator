@@ -251,8 +251,11 @@ public class InventoryControls : ParentControls
     // update hot bar
     protected override void Update()
     {
-        base.Update();
-        HotbarUpdates();
+        if(!PauseControls.Instance.GetPause())
+        {
+            base.Update();
+            HotbarUpdates();
+        }
     }
 
     // unpossess mechanic, added so you can revert the hotbar when going to be a ghost

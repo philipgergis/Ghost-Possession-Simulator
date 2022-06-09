@@ -176,8 +176,11 @@ public class ParentControls : MonoBehaviour
     // handles other controls
     protected virtual void Update()
     {
-        StartAbility();
-        Possession();
+        if(!PauseControls.Instance.GetPause())
+        {
+            StartAbility();
+            Possession();
+        }
     }
 
     

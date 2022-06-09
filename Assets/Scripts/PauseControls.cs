@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PauseControls : MonoBehaviour
 {
+    // Singleton
+    public static PauseControls Instance;
+
     // input action controls
     private MainControls controls;
 
@@ -18,6 +21,13 @@ public class PauseControls : MonoBehaviour
     private void Awake()
     {
         controls = new MainControls();
+        Instance = this;
+    }
+
+    // returns pause state
+    public bool GetPause()
+    {
+        return paused;
     }
 
     // pause game and unpause
