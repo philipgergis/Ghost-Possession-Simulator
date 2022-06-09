@@ -24,11 +24,14 @@ public class InventoryControls : ParentControls
     // SFX
     private AudioSource pickupAudio;
 
+    private LayerMask grabMask;
+
 
     protected override void Awake()
     {
         base.Awake();
         pickupAudio = GetComponent<AudioSource>();
+        grabMask = LayerMask.GetMask("Grab", "PossessGrab");
     }
 
     // Checks if full capacity is reached
@@ -206,7 +209,7 @@ public class InventoryControls : ParentControls
     protected void GrabObject()
     {
         // Gets object in an area, if they are grabbable it grabs the first one from the list
-        Collider[] grabs = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Grab", "PossessGrab"));
+        Collider[] grabs = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, grabMask);
 
         // if an object was detected add if there is space
         if (grabs.Length > 0 && RoomAvailable())
@@ -239,36 +242,38 @@ public class InventoryControls : ParentControls
     // unpossess mechanic, added so you can revert the hotbar when going to be a ghost
     protected override void Possession()
     {
-
-        // ghost variable
-        Transform ghost = null;
-
-        // looks for a ghost in the child objects
-        foreach (Transform child in transform)
-        {
-            if (child.tag == "Ghost")
-            {
-                ghost = child;
-                break;
-            }
-        }
-
         // if entity is in control, the possess button is pressed, and the ghost is a child, unpossess the target
-        if (inControl && mainControls.Main.Possess.triggered && ghost != null)
+        if (inControl && mainControls.Main.Possess.triggered)
         {
-            // checks for objects the ghost cannot spawn over
-            Collider[] obstacles = Physics.OverlapSphere(ghost.position, radiusDetect, LayerMask.GetMask("Anti-Ghost"));
+            // ghost variable
+            Transform ghost = null;
 
-            // if no objects blocking the way, unposssess target and change the camera
-            if (obstacles.Length == 0)
+            // looks for a ghost in the child objects
+            foreach (Transform child in transform)
             {
-                // added revert hot bar settings to unpossession
-                RevertHotbarSettings();
-                ghost.gameObject.SetActive(true);
-                ghost.GetComponent<ParentControls>().SetControl(true);
-                ghost.transform.parent = null;
-                CameraShift(ghost);
-                SetControl(false);
+                if (child.tag == "Ghost")
+                {
+                    ghost = child;
+                    break;
+                }
+            }
+
+            if (ghost != null)
+            {
+                // checks for objects the ghost cannot spawn over
+                Collider[] obstacles = Physics.OverlapSphere(ghost.position, radiusDetect, mask);
+
+                // if no objects blocking the way, unposssess target and change the camera
+                if (obstacles.Length == 0)
+                {
+                    // added revert hot bar settings to unpossession
+                    RevertHotbarSettings();
+                    ghost.gameObject.SetActive(true);
+                    ghost.GetComponent<ParentControls>().SetControl(true);
+                    ghost.transform.parent = null;
+                    CameraShift(ghost);
+                    SetControl(false);
+                }
             }
         }
     }

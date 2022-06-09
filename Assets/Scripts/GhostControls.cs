@@ -73,7 +73,7 @@ public class GhostControls : ParentControls
         if (inControl && mainControls.Ghost.Possess.triggered)
         {
             // checks for any possible possessable objects and possesses one if length is > 0
-            Collider[] possessions = Physics.OverlapBox(transform.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Possess", "PossessGrab"));
+            Collider[] possessions = Physics.OverlapSphere(transform.position, radiusDetect, mask);
             if (possessions.Length > 0 && (!possessions[0].GetComponent<ParentControls>().TameType() || possessions[0].GetComponentInChildren<TameableBehavior>().CheckTame()))
             {
                 // play possession sfx

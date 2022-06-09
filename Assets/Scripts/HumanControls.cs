@@ -34,11 +34,14 @@ public class HumanControls : InventoryControls
     private Vector3 m_CamForward;	// The current forward direction of the camera
     private Vector3 m_Move;
     private bool m_Jump;			// the world-relative desired move direction, calculated from the camForward and user input.
+    private LayerMask doorMask;
 
     // get inventory of player
     protected override void Start()
     {
         base.Start();
+
+        doorMask = LayerMask.GetMask("Door");
 
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -69,7 +72,7 @@ public class HumanControls : InventoryControls
     protected void HumanInteract()
     {
         // gets a list of doors in the area, and interacts with the first one from the list
-        Collider[] doors = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Door"));
+        Collider[] doors = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, doorMask);
 
         if (doors.Length > 0)
         {

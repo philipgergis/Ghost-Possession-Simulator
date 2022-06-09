@@ -185,6 +185,10 @@ MonoBehaviour:
   turnSmoothVelocity: 0
   adjustmentAngle: 0
   cameraLookAt: {fileID: 6494952414236598779}
+  radiusDetect: 0.35
+  mask:
+    serializedVersion: 2
+    m_Bits: 256
   speed: 5
   maxItems: 1
   inv: {fileID: 2593646167795109814}
