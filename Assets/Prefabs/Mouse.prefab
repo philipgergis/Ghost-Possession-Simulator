@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2998824457053088620}
   - component: {fileID: -2130796514382686388}
   - component: {fileID: 4833389439074185962}
+  - component: {fileID: 1715755488807236431}
   m_Layer: 7
   m_Name: Mouse
   m_TagString: Possess
@@ -273,6 +274,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1715755488807236431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2692201659061041459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8bb0d58bbddc24eb8abdd9fe451439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animalNoises:
+  - {fileID: 8300000, guid: 332fb61e3be2b384f93cce1a47723980, type: 3}
+  - {fileID: 8300000, guid: 17755aabc1a13064bb2eef1865f67d83, type: 3}
+  - {fileID: 8300000, guid: aefbfe257c77a1e488c9b3aa75b92a36, type: 3}
+  volumeChangeMultiplier: 0.2
+  pitchChangeMultiplier: 0.2
 --- !u!1 &5548566493296193561
 GameObject:
   m_ObjectHideFlags: 0
