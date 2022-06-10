@@ -44,6 +44,7 @@ public class WeightedSwitch : Switches
         if(currentAmount < amount)
         {
             on = false;
+            text.color = Color.white;
         }
 
         // if the switch was on before, move button back

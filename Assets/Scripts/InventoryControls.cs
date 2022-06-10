@@ -225,7 +225,7 @@ public class InventoryControls : ParentControls
     protected void GrabObject()
     {
         // Gets object in an area, if they are grabbable it grabs the first one from the list
-        Collider[] grabs = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, grabMask);
+        Collider[] grabs = Physics.OverlapBox(transform.position + transform.forward, new Vector3(1, 1, 1), Quaternion.identity, grabMask);
 
         // if an object was detected add if there is space
         if (grabs.Length > 0 && RoomAvailable())

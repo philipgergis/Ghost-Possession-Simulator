@@ -19,6 +19,8 @@ public class ParentControls : MonoBehaviour
     [SerializeField] protected float radiusDetect = 0.35f;
     [SerializeField] protected LayerMask mask;
     [SerializeField] protected LayerMask interactMask;
+    // Speed for movement
+    [SerializeField] protected float speed = 5;
 
     // boolean to check if player is controlling entity
     protected bool inControl = false;
@@ -27,8 +29,6 @@ public class ParentControls : MonoBehaviour
     protected MainControls mainControls;
     protected Rigidbody rb;
 
-    // Speed for movement
-    [SerializeField] protected float speed = 5;
 
 
 
@@ -91,7 +91,7 @@ public class ParentControls : MonoBehaviour
             }
             else
             {
-                rb.velocity = Vector3.zero;
+                rb.velocity = new Vector3(0, rb.velocity.y, 0);
             }
         }
         
@@ -173,7 +173,7 @@ public class ParentControls : MonoBehaviour
     protected void GetInteraction()
     {
         // gets a list of doors in the area, and interacts with the first one from the list
-        Collider[] interacts = Physics.OverlapBox(transform.position + transform.forward, new Vector3(1, 1, 1), Quaternion.identity, interactMask);
+        Collider[] interacts = Physics.OverlapSphere(transform.position + transform.forward, 1.5f, interactMask);
 
         if (interacts.Length > 0)
         {
