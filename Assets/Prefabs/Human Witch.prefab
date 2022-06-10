@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3925976346064049676}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.7687435, y: 0.030999996, z: 2.636325}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 29.34953, y: 21.83139, z: 48.757458}
   m_Children: []
   m_Father: {fileID: 4999351788524961216}
@@ -81,6 +81,9 @@ MonoBehaviour:
   tamingItem: {fileID: 979638452044931803, guid: f5fe1c9eef02b514d89e6a7c6dc71484, type: 3}
   tamed: {fileID: 1687653059622015711}
   notTamed: {fileID: 4949480608922878363}
+  maskTame:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &6055446025392780649
 GameObject:
   m_ObjectHideFlags: 0

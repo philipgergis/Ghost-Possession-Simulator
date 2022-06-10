@@ -369,7 +369,7 @@ MonoBehaviour:
   interactMask:
     serializedVersion: 2
     m_Bits: 8192
-  speed: 5
+  speed: 1
 --- !u!114 &668327607566985544
 MonoBehaviour:
   m_ObjectHideFlags: 0
