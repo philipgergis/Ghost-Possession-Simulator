@@ -207,7 +207,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   speed: 5
-  maxItems: 1
+  maxItems: 2
   inv: {fileID: 1780952156777273049}
   adjustment: {x: 0, y: 1, z: 0}
 --- !u!1 &987199269991381614
