@@ -236,14 +236,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome to Ghost Possession Simulator, the game were you are stuck in a
-    room as a ghost and have to escape. Currently, you are trapped in an abandoned
+  m_text: "Welcome to Ghost Possession Simulator, the game where you are stuck in
+    a room as a ghost and have to escape. Currently, you are trapped in an abandoned
     asylum that has been ghost proofed due to the prior inhabitants' concerns of
     ghosts. However, living beings and certain objects are not capable of being ghost
     proofed (as indicated by the glowing ball on them). As a result, you can possess
     these entities and make use of their special traits to get out of the room you
     are stuck in. Are you clever enough to use these entities to your advantage,
-    or will you be stuck in the asylum as its new eternal patient?
+    or will you be stuck in the asylum as its new eternal patient? Press 'e'\xDF
+    to interact with exclamation points for hints."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -270,7 +271,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 69.4
   m_fontSizeBase: 92.41
   m_fontWeight: 400
   m_enableAutoSizing: 1
