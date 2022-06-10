@@ -106,9 +106,9 @@ GameObject:
   - component: {fileID: 1780952155830896009}
   - component: {fileID: 1780952155830896014}
   - component: {fileID: 1780952155830896008}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: cat
-  m_TagString: Untagged
+  m_TagString: Possess
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,7 +122,7 @@ Transform:
   m_GameObject: {fileID: 979638452044931803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1.088}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.8321, y: 2.8321, z: 2.8321}
   m_Children:
   - {fileID: 6266667863593691935}
   - {fileID: 5446044545656316678}
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b48fc86bcfe739448d59ed62cf916be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needsTaming: 0
+  needsTaming: 1
   turnSmoothTime: 0.1
   turnSmoothVelocity: 0
   adjustmentAngle: 0
@@ -424,7 +424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780952155675671130}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 1.088}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10.36317, y: 7.70855, z: 17.21601}
   m_Children: []
   m_Father: {fileID: 4306292419208761544}
@@ -447,6 +447,9 @@ MonoBehaviour:
   tamingItem: {fileID: 0}
   tamed: {fileID: 992817264753335711}
   notTamed: {fileID: 1500159771392336735}
+  maskTame:
+    serializedVersion: 2
+    m_Bits: 3072
 --- !u!1 &1780952156777273054
 GameObject:
   m_ObjectHideFlags: 0
