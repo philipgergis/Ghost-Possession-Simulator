@@ -177,6 +177,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4815685039337854481, guid: abd8ca0a034e8604a97619aa2b9aafd4, type: 3}
   m_PrefabInstance: {fileID: 203724957297160002}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &7863123989616206231 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8056002259285774037, guid: abd8ca0a034e8604a97619aa2b9aafd4, type: 3}
+  m_PrefabInstance: {fileID: 203724957297160002}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &2623142358050541189 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2788995732059070919, guid: abd8ca0a034e8604a97619aa2b9aafd4, type: 3}
+  m_PrefabInstance: {fileID: 203724957297160002}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4613663781924618817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4815685038352362755, guid: abd8ca0a034e8604a97619aa2b9aafd4, type: 3}
@@ -196,5 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 4613663781924618817}
   buttonAdjustment: 0.05
+  clickOn: {fileID: 7863123989616206231}
+  clickOff: {fileID: 2623142358050541189}
   amount: 4
   text: {fileID: 6949728619398138919}
