@@ -24,11 +24,14 @@ public class InventoryControls : ParentControls
     // SFX
     private AudioSource pickupAudio;
 
+    private LayerMask grabMask;
+
 
     protected override void Awake()
     {
         base.Awake();
         pickupAudio = GetComponent<AudioSource>();
+        grabMask = LayerMask.GetMask("Grab", "PossessGrab");
     }
 
     // Checks if full capacity is reached
@@ -37,6 +40,17 @@ public class InventoryControls : ParentControls
         return inv.childCount < maxItems;
     }
 
+    public bool ItemExists(GameObject item)
+    {
+        for(int i = 0; i < maxItems; i++)
+        {
+            if(item == invObjects[i])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // Disables all images, the selection border, turns on slashes, and puts current index to 0
     protected void RevertHotbarSettings()
@@ -52,7 +66,7 @@ public class InventoryControls : ParentControls
     }
 
     // removes crosses from available inventory slows, or turns them back on
-    protected void ShowAccessibleSlots(bool show)
+    public void ShowAccessibleSlots(bool show)
     {
         if(inControl)
         {
@@ -64,7 +78,7 @@ public class InventoryControls : ParentControls
     }
 
     // if there is an item in a slow it shows the image
-    protected void ShowItemImages()
+    public void ShowItemImages()
     {
         if(inControl)
         {
@@ -76,15 +90,15 @@ public class InventoryControls : ParentControls
                     HotbarManager.Instance.UpdateSlot(i, true, 3);
                 }
             }
-        } 
+        }
     }
 
     // shows which slot is selected, shows all items, then removes slashes when needed
     protected void HotbarUpdates()
     {
         SelectSlot();
-        ShowItemImages();
-        ShowAccessibleSlots(false);
+        //ShowItemImages();
+        //ShowAccessibleSlots(false);
     }
 
 
@@ -146,6 +160,8 @@ public class InventoryControls : ParentControls
                     obj.transform.parent = inv;
                     obj.transform.position = transform.position + transform.forward + adjustment;
                     obj.SetActive(false);
+                    HotbarManager.Instance.SetSlotImage(i, invObjects[i].GetComponent<Grabbables>().GetImage());
+                    HotbarManager.Instance.UpdateSlot(i, true, 3);
                     break;
                 }
             }
@@ -162,6 +178,8 @@ public class InventoryControls : ParentControls
         {
             if(invObjects[i] == obj)
             {
+                HotbarManager.Instance.UpdateSlot(i, false, 3);
+                HotbarManager.Instance.SetSlotImage(i, null);
                 invObjects[i] = null;
                 HotbarManager.Instance.UpdateSlot(i, false, 3);
                 Destroy(obj);
@@ -180,6 +198,7 @@ public class InventoryControls : ParentControls
         {
             // remove image from hotbar and inventory array, make object parentless, and make it active
             HotbarManager.Instance.UpdateSlot(currentIndex, false, 3);
+            HotbarManager.Instance.SetSlotImage(index, null);
             invObjects[index] = null;
             child.transform.parent = null;
             child.SetActive(true);
@@ -206,7 +225,7 @@ public class InventoryControls : ParentControls
     protected void GrabObject()
     {
         // Gets object in an area, if they are grabbable it grabs the first one from the list
-        Collider[] grabs = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, LayerMask.GetMask("Grab", "PossessGrab"));
+        Collider[] grabs = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, grabMask);
 
         // if an object was detected add if there is space
         if (grabs.Length > 0 && RoomAvailable())
@@ -219,8 +238,10 @@ public class InventoryControls : ParentControls
     // Ability to call for special ability, add grab object to it
     protected override void StartAbility()
     {
+
         if (mainControls.Main.Ability.triggered && inControl)
         {
+            GetInteraction();
             GrabObject();
         }
         else if(mainControls.Main.Drop.triggered && inControl)
@@ -232,43 +253,48 @@ public class InventoryControls : ParentControls
     // update hot bar
     protected override void Update()
     {
-        base.Update();
-        HotbarUpdates();
+        if(!PauseControls.Instance.GetPause())
+        {
+            base.Update();
+            HotbarUpdates();
+        }
     }
 
     // unpossess mechanic, added so you can revert the hotbar when going to be a ghost
     protected override void Possession()
     {
-
-        // ghost variable
-        Transform ghost = null;
-
-        // looks for a ghost in the child objects
-        foreach (Transform child in transform)
-        {
-            if (child.tag == "Ghost")
-            {
-                ghost = child;
-                break;
-            }
-        }
-
         // if entity is in control, the possess button is pressed, and the ghost is a child, unpossess the target
-        if (inControl && mainControls.Main.Possess.triggered && ghost != null)
+        if (inControl && mainControls.Main.Possess.triggered)
         {
-            // checks for objects the ghost cannot spawn over
-            Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
+            // ghost variable
+            Transform ghost = null;
 
-            // if no objects blocking the way, unposssess target and change the camera
-            if (obstacles.Length == 0)
+            // looks for a ghost in the child objects
+            foreach (Transform child in transform)
             {
-                // added revert hot bar settings to unpossession
-                RevertHotbarSettings();
-                ghost.gameObject.SetActive(true);
-                ghost.GetComponent<ParentControls>().SetControl(true);
-                ghost.transform.parent = null;
-                CameraShift(ghost);
-                SetControl(false);
+                if (child.tag == "Ghost")
+                {
+                    ghost = child;
+                    break;
+                }
+            }
+
+            if (ghost != null)
+            {
+                // checks for objects the ghost cannot spawn over
+                Collider[] obstacles = Physics.OverlapSphere(ghost.position, radiusDetect, mask);
+
+                // if no objects blocking the way, unposssess target and change the camera
+                if (obstacles.Length == 0)
+                {
+                    // added revert hot bar settings to unpossession
+                    RevertHotbarSettings();
+                    ghost.gameObject.SetActive(true);
+                    ghost.GetComponent<ParentControls>().SetControl(true);
+                    ghost.transform.parent = null;
+                    CameraShift(ghost);
+                    SetControl(false);
+                }
             }
         }
     }

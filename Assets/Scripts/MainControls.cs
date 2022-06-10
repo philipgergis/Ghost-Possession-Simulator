@@ -71,6 +71,15 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""228b7db2-d46e-46e8-8f99-24169c6ccf2c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -170,6 +179,17 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b4b7f96a-528b-4499-b786-4d39f65b30ed"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -323,6 +343,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         m_Main_Drop = m_Main.FindAction("Drop", throwIfNotFound: true);
         m_Main_Possess = m_Main.FindAction("Possess", throwIfNotFound: true);
         m_Main_Inventory = m_Main.FindAction("Inventory", throwIfNotFound: true);
+        m_Main_Pause = m_Main.FindAction("Pause", throwIfNotFound: true);
         // Ghost
         m_Ghost = asset.FindActionMap("Ghost", throwIfNotFound: true);
         m_Ghost_Fly = m_Ghost.FindAction("Fly", throwIfNotFound: true);
@@ -396,6 +417,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Main_Drop;
     private readonly InputAction m_Main_Possess;
     private readonly InputAction m_Main_Inventory;
+    private readonly InputAction m_Main_Pause;
     public struct MainActions
     {
         private @MainControls m_Wrapper;
@@ -405,6 +427,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         public InputAction @Drop => m_Wrapper.m_Main_Drop;
         public InputAction @Possess => m_Wrapper.m_Main_Possess;
         public InputAction @Inventory => m_Wrapper.m_Main_Inventory;
+        public InputAction @Pause => m_Wrapper.m_Main_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -429,6 +452,9 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @Inventory.started -= m_Wrapper.m_MainActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnInventory;
+                @Pause.started -= m_Wrapper.m_MainActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -448,6 +474,9 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -549,6 +578,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         void OnDrop(InputAction.CallbackContext context);
         void OnPossess(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IGhostActions
     {

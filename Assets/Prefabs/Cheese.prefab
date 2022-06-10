@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6620836834266834388}
   - component: {fileID: 6620836834270225914}
   - component: {fileID: 6620836834269128506}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Cheese4/4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 53724639374717428}
   m_Layer: 10
   m_Name: Cheese
-  m_TagString: Untagged
+  m_TagString: PossessGrab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,6 +163,13 @@ MonoBehaviour:
   turnSmoothVelocity: 0
   adjustmentAngle: 0
   cameraLookAt: {fileID: 6620836834266834396}
+  radiusDetect: 0.35
+  mask:
+    serializedVersion: 2
+    m_Bits: 256
+  interactMask:
+    serializedVersion: 2
+    m_Bits: 8192
   speed: 100
   maxTime: 50
 --- !u!114 &53724639374717428

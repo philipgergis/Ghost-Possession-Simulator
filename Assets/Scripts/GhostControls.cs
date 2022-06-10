@@ -7,6 +7,9 @@ public class GhostControls : ParentControls
     // sound audio
     private AudioSource ghostAudio;
 
+    // no flight bool
+    [SerializeField] private bool flight = true;
+
     // needed for sound
     protected override void Awake()
     {
@@ -48,10 +51,14 @@ public class GhostControls : ParentControls
                 // cant fly and move at the same time
                 if(upDown != 0)
                 {
-                    rb.MovePosition(transform.position + new Vector3(0, upDown * speed * Time.fixedDeltaTime, 0));
+                    if(flight)
+                    {
+                        rb.MovePosition(transform.position + new Vector3(0, upDown * speed * Time.fixedDeltaTime, 0));
+                    }
                 }
                 else
                 {
+                    rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                     rb.MovePosition(transform.position + -transform.right * speed * Time.fixedDeltaTime);
                 }
                 
@@ -72,7 +79,7 @@ public class GhostControls : ParentControls
         if (inControl && mainControls.Ghost.Possess.triggered)
         {
             // checks for any possible possessable objects and possesses one if length is > 0
-            Collider[] possessions = Physics.OverlapBox(transform.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Possess", "PossessGrab"));
+            Collider[] possessions = Physics.OverlapSphere(transform.position, radiusDetect, mask);
             if (possessions.Length > 0 && (!possessions[0].GetComponent<ParentControls>().TameType() || possessions[0].GetComponentInChildren<TameableBehavior>().CheckTame()))
             {
                 // play possession sfx
@@ -86,6 +93,14 @@ public class GhostControls : ParentControls
 
                 // if possessed object is a human, use its CameraLookAt transform instead of the human's transform (bc it's too low)
                 CameraShift(entity.GetComponent<ParentControls>().GetCameraLookAt());
+
+                // update inventory if inventory item
+                InventoryControls invCheck = entity.GetComponent<InventoryControls>();
+                if (invCheck != null)
+                {
+                    invCheck.ShowAccessibleSlots(false);
+                    invCheck.ShowItemImages();
+                }
 
                 // turn off ghost
                 SetControl(false);

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Asylum Level.unity
     guid: ad01f17b5fe78490fb40e1ee8c4b03ba
+  - enabled: 1
+    path: Assets/Scenes/Witch Level.unity
+    guid: 44f1b51d851bd4a93a46f82df7d5ca07
   m_configObjects: {}

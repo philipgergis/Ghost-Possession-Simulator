@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class InanimateControls : ParentControls
 {
+    // time it takes to move again
     [SerializeField] private float maxTime;
+
+    // time remaining to move again
     private float currentTime = 0;
+
 
 
     protected override void MoveEntity()
     {
+        // only move if the current time has run out
         if (inControl && currentTime <= 0)
         {
             float leftRight = mainControls.Main.Move.ReadValue<Vector3>().x;
@@ -19,21 +24,52 @@ public class InanimateControls : ParentControls
 
             if (direction.magnitude >= 0.1f)
             {
-                //float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-
-                ////targetAngle needs to be + 90 degrees because for some reason the player model is always 90 degrees off
-                //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle + adjustmentAngle, ref turnSmoothVelocity, turnSmoothTime);
-
-                //transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-                //rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
                 rb.AddForce(direction * speed);
                 currentTime = maxTime;
             }
         }
         else
         {
+            // subtract from current time if tried to move but cannot
             currentTime--;
+        }
+    }
+
+    protected override void Possession()
+    {
+        // if entity is in control, the possess button is pressed, and the ghost is a child, unpossess the target
+        if (inControl && mainControls.Main.Possess.triggered)
+        {
+            // ghost variable
+            Transform ghost = null;
+
+            // looks for a ghost in the child objects
+            foreach (Transform child in transform)
+            {
+                if (child.tag == "Ghost")
+                {
+                    ghost = child;
+                    break;
+                }
+            }
+            if (ghost != null)
+            {
+                // checks for objects the ghost cannot spawn over
+                Collider[] obstacles = Physics.OverlapSphere(transform.position + Vector3.up, radiusDetect, mask);
+
+                // if no objects blocking the way, unposssess target and change the camera
+                // makes it so it checks above inanimate object for obstacles instead of the ghost position to account for object rotating while moving
+                if (obstacles.Length == 0)
+                {
+                    ghost.gameObject.SetActive(true);
+                    ghost.GetComponent<ParentControls>().SetControl(true);
+                    ghost.transform.parent = null;
+                    ghost.transform.position = transform.position + Vector3.up;
+                    ghost.rotation = new Quaternion(0, transform.rotation.y, 0, 0);
+                    CameraShift(ghost);
+                    SetControl(false);
+                }
+            }
         }
     }
 }

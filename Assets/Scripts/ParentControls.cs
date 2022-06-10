@@ -5,16 +5,20 @@ using UnityEngine;
 
 public class ParentControls : MonoBehaviour
 {
-    [SerializeField] protected bool needsTaming;
+    
 
     protected Transform cam;
 
     [Header("Parent Controls")]
     //public float speed = 6f;
+    [SerializeField] protected bool needsTaming;
     [SerializeField] protected float turnSmoothTime = 0.1f;
     [SerializeField] protected float turnSmoothVelocity;
     [SerializeField] protected float adjustmentAngle;
     [SerializeField] protected Transform cameraLookAt;
+    [SerializeField] protected float radiusDetect = 0.35f;
+    [SerializeField] protected LayerMask mask;
+    [SerializeField] protected LayerMask interactMask;
 
     // boolean to check if player is controlling entity
     protected bool inControl = false;
@@ -27,6 +31,7 @@ public class ParentControls : MonoBehaviour
     [SerializeField] protected float speed = 5;
 
 
+
     // Initiate parentControls
     protected virtual void Awake()
     {
@@ -35,11 +40,14 @@ public class ParentControls : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
+
+    // checks if it is a type that needs taming
     public bool TameType()
     {
         return needsTaming;
     }
 
+    // checks if object is incontrol
     public bool CheckControl()
     {
         return inControl;
@@ -81,7 +89,12 @@ public class ParentControls : MonoBehaviour
 
                 rb.MovePosition(transform.position + transform.forward * speed * Time.fixedDeltaTime);
             }
+            else
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
+        
     }
 
 
@@ -95,34 +108,37 @@ public class ParentControls : MonoBehaviour
     // if object is possessed and nothing is blocking the ghost, the ghost unpossesses the entity
     protected virtual void Possession()
     {
-        // ghost variable
-        Transform ghost = null;
-
-        // looks for a ghost in the child objects
-        foreach (Transform child in transform)
-        {
-            if (child.tag == "Ghost")
-            {
-                ghost = child;
-                break;
-            }
-        }
-
         // if entity is in control, the possess button is pressed, and the ghost is a child, unpossess the target
-        if (inControl && mainControls.Main.Possess.triggered && ghost != null )
+        if (inControl && mainControls.Main.Possess.triggered )
         {
-            // checks for objects the ghost cannot spawn over
-            Collider[] obstacles = Physics.OverlapBox(ghost.position, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Anti-Ghost"));
+            // ghost variable
+            Transform ghost = null;
 
-            // if no objects blocking the way, unposssess target and change the camera
-            if(obstacles.Length == 0)
+            // looks for a ghost in the child objects
+            foreach (Transform child in transform)
             {
-                ghost.gameObject.SetActive(true);
-                ghost.GetComponent<ParentControls>().SetControl(true);
-                ghost.transform.parent = null;
-                CameraShift(ghost);
-                SetControl(false);
-            } 
+                if (child.tag == "Ghost")
+                {
+                    ghost = child;
+                    break;
+                }
+            }
+
+            if (ghost != null)
+            {
+                // checks for objects the ghost cannot spawn over
+                Collider[] obstacles = Physics.OverlapSphere(ghost.position, radiusDetect, mask);
+
+                // if no objects blocking the way, unposssess target and change the camera
+                if (obstacles.Length == 0)
+                {
+                    ghost.gameObject.SetActive(true);
+                    ghost.GetComponent<ParentControls>().SetControl(true);
+                    ghost.transform.parent = null;
+                    CameraShift(ghost);
+                    SetControl(false);
+                }
+            }
         }   
     }
 
@@ -147,7 +163,23 @@ public class ParentControls : MonoBehaviour
     // used when entities have special abilities
     protected virtual void StartAbility()
     {
+        if(mainControls.Main.Ability.triggered && inControl)
+        {
+            GetInteraction();
+        }
+    }
 
+
+    protected void GetInteraction()
+    {
+        // gets a list of doors in the area, and interacts with the first one from the list
+        Collider[] interacts = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, interactMask);
+
+        if (interacts.Length > 0)
+        {
+            Interact inter = interacts[0].GetComponent<Interact>();
+            inter.Interaction(gameObject);
+        }
     }
 
 
@@ -161,8 +193,11 @@ public class ParentControls : MonoBehaviour
     // handles other controls
     protected virtual void Update()
     {
-        StartAbility();
-        Possession();
+        if(!PauseControls.Instance.GetPause())
+        {
+            StartAbility();
+            Possession();
+        }
     }
 
     
