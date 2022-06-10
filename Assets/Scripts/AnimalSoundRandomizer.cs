@@ -20,7 +20,7 @@ public class AnimalSoundRandomizer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (GetComponent<InventoryControls>().CheckControl())
+        if (GetComponent<ParentControls>().CheckControl())
         {
             if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
             {
