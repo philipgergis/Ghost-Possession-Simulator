@@ -13,12 +13,16 @@ public class Switches : MonoBehaviour
     // determines if the switch is on or not
     protected bool on = false;
 
+    [SerializeField] AudioSource clickOn;
+    [SerializeField] AudioSource clickOff;
+
     // when an object is on the switch it stays on
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Possess" || other.tag == "Human" )
         {
             SwitchActivate();
+            AudioSource.PlayClipAtPoint(clickOn.clip, transform.position, 2.0f);
         }
         
     }
@@ -29,6 +33,7 @@ public class Switches : MonoBehaviour
         if (other.tag == "Possess" || other.tag == "Human" )
         {
             SwitchDeactivate();
+            AudioSource.PlayClipAtPoint(clickOff.clip, transform.position, 2.0f);
         }
     }
 
