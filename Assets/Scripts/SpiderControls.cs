@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpiderControls : ParentControls
 {
 
+    [SerializeField] Transform wallDetector;
+
     protected override void MoveEntity()
     {
         if (inControl)
@@ -23,9 +25,9 @@ public class SpiderControls : ParentControls
 
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-                if (Physics.CheckSphere(transform.position + (transform.forward + Vector3.up)*0.1f, radiusDetect, mask) && forwardBackward > 0)
+                if (Physics.CheckSphere(wallDetector.position, radiusDetect, mask) && forwardBackward > 0)
                 {
-                    rb.velocity = Vector3.up * 5f;
+                    rb.velocity = Vector3.up * speed;
 
                 }
                 else
