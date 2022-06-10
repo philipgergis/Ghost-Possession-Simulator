@@ -7,6 +7,9 @@ public class GhostControls : ParentControls
     // sound audio
     private AudioSource ghostAudio;
 
+    // no flight bool
+    [SerializeField] private bool flight = true;
+
     // needed for sound
     protected override void Awake()
     {
@@ -48,7 +51,10 @@ public class GhostControls : ParentControls
                 // cant fly and move at the same time
                 if(upDown != 0)
                 {
-                    rb.MovePosition(transform.position + new Vector3(0, upDown * speed * Time.fixedDeltaTime, 0));
+                    if(flight)
+                    {
+                        rb.MovePosition(transform.position + new Vector3(0, upDown * speed * Time.fixedDeltaTime, 0));
+                    }
                 }
                 else
                 {
