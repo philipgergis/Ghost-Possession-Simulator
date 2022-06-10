@@ -200,6 +200,7 @@ MonoBehaviour:
   maxItems: 1
   inv: {fileID: 2593646167795109814}
   adjustment: {x: 0, y: 0.5, z: 0}
+  radiusGrab: 1
 --- !u!82 &1914599941658496484
 AudioSource:
   m_ObjectHideFlags: 0

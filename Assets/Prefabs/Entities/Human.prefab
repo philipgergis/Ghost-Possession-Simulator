@@ -2822,6 +2822,7 @@ MonoBehaviour:
   maxItems: 5
   inv: {fileID: 2548501811716139987}
   adjustment: {x: 0, y: 1, z: 0}
+  radiusGrab: 2
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_JumpPower: 5

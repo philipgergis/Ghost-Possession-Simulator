@@ -58,8 +58,16 @@ public class GhostControls : ParentControls
                 }
                 else
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                    rb.MovePosition(transform.position + -transform.right * speed * Time.fixedDeltaTime);
+                    if(flight)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                        rb.MovePosition(transform.position + -transform.right * speed * Time.fixedDeltaTime);
+                    }
+                    else
+                    {
+                        rb.MovePosition(transform.position + -transform.right * speed * Time.fixedDeltaTime);
+                    }
+                    
                 }
                 
             }
@@ -67,7 +75,14 @@ public class GhostControls : ParentControls
             // when there is no input, ensure ghost is not moving
             else
             {
-                rb.velocity = Vector3.zero;
+                if(flight)
+                {
+                    rb.velocity = Vector3.zero;
+                }
+                else
+                {
+                    rb.velocity = new Vector3(0, rb.velocity.y, 0);
+                }
             }
         }
     }

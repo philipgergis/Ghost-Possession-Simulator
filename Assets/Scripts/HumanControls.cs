@@ -153,7 +153,7 @@ public class HumanControls : InventoryControls
             float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
             if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
             {
-                m_Crouching = true;
+                m_Crouching = false;
                 return;
             }
             m_Capsule.height = m_CapsuleHeight;
@@ -171,7 +171,7 @@ public class HumanControls : InventoryControls
             float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
             if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
             {
-                m_Crouching = true;
+                m_Crouching = false;
             }
         }
     }
@@ -317,8 +317,9 @@ public class HumanControls : InventoryControls
         if(inControl)
         {
             // pass all parameters to the character control script
-            MoveEntity();
+
             m_Jump = false;
+            MoveEntity();
         }
         else
         {
