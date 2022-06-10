@@ -173,7 +173,7 @@ public class ParentControls : MonoBehaviour
     protected void GetInteraction()
     {
         // gets a list of doors in the area, and interacts with the first one from the list
-        Collider[] interacts = Physics.OverlapBox(transform.position + transform.forward, new Vector3(2, 2, 2), Quaternion.identity, interactMask);
+        Collider[] interacts = Physics.OverlapBox(transform.position + transform.forward, new Vector3(1, 1, 1), Quaternion.identity, interactMask);
 
         if (interacts.Length > 0)
         {

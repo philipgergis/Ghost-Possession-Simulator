@@ -19,6 +19,9 @@ public class TameableBehavior : MonoBehaviour
     // orb to convey object is untamed
     [SerializeField] private GameObject notTamed;
 
+    // mask for overlap
+    [SerializeField] private LayerMask maskTame;
+
     // inventory controller
     private InventoryControls _controller;
 
@@ -39,11 +42,10 @@ public class TameableBehavior : MonoBehaviour
         if (!transform.parent.GetComponent<ParentControls>().CheckControl())
         {
             // check for taming item in distance 4 * radius
-            Collider[] items = Physics.OverlapSphere(transform.position, radius * 4);
+            Collider[] items = Physics.OverlapSphere(transform.position, radius * 4, maskTame);
 
             foreach (Collider col in items)
             {
-
                 Vector3 colPosition = new Vector3(col.transform.position.x, gameObject.transform.parent.position.y, col.transform.position.z);
 
                 // make entity go to item if it is nearby until it is within a certain distance

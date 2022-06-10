@@ -48,6 +48,9 @@ MonoBehaviour:
   tamingItem: {fileID: 0}
   tamed: {fileID: 5248955485985461734}
   notTamed: {fileID: 3649106650551200158}
+  maskTame:
+    serializedVersion: 2
+    m_Bits: 3072
 --- !u!1 &5866330368156842817
 GameObject:
   m_ObjectHideFlags: 0
