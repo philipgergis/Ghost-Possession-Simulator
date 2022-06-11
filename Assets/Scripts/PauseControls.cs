@@ -35,6 +35,17 @@ public class PauseControls : MonoBehaviour
     {
         if(paused)
         {
+            foreach (Transform child in pauseMenu.transform)
+            {
+                if(child.name == "Main Menu")
+                {
+                    child.gameObject.SetActive(true);
+                }
+                else if(child.name == "Settings")
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
             Time.timeScale = 1f;
             pauseMenu.SetActive(false);
         }

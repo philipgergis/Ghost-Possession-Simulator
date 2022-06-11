@@ -232,7 +232,8 @@ public class InventoryControls : ParentControls
         // if an object was detected add if there is space
         if (grabs.Length > 0 && RoomAvailable())
         {
-            AudioSource.PlayClipAtPoint(pickupAudio.clip, transform.position, 2.0f);
+            PlayTheSound(pickupAudio);
+            //AudioSource.PlayClipAtPoint(pickupAudio.clip, transform.position, volume);
             AddItem(grabs[0].gameObject);
         }
     }

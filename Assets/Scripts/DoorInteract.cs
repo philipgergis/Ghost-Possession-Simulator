@@ -34,7 +34,8 @@ public class DoorInteract : Interact
                 // play sfx for opening door
                 if (TryGetComponent<AudioSource>(out AudioSource doorAudio))
                 {
-                    AudioSource.PlayClipAtPoint(doorAudio.clip, transform.position, 2.0f);
+                    PlayTheSound(doorAudio);
+                    //AudioSource.PlayClipAtPoint(doorAudio.clip, transform.position, volume);
                 }
 
                 // destroys door to unlock it

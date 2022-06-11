@@ -98,7 +98,9 @@ public class GhostControls : ParentControls
             if (possessions.Length > 0 && (!possessions[0].GetComponent<ParentControls>().TameType() || possessions[0].GetComponentInChildren<TameableBehavior>().CheckTame()))
             {
                 // play possession sfx
-                AudioSource.PlayClipAtPoint(ghostAudio.clip, transform.position, 2.0f);   // for some reason ghostAudio.Play() doesnt work
+
+                PlayTheSound(ghostAudio);
+                //AudioSource.PlayClipAtPoint(ghostAudio.clip, transform.position, volume);   // for some reason ghostAudio.Play() doesnt work
 
                 // move ghost to above the possessed object, make the ghost its child, then switch controls, and change camera control
                 Collider entity = possessions[0];

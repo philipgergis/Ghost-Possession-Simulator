@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class ParentControls : MonoBehaviour
 {
@@ -29,6 +30,9 @@ public class ParentControls : MonoBehaviour
     protected MainControls mainControls;
     protected Rigidbody rb;
 
+    [SerializeField] private AudioMixer masterVolume;
+
+
 
 
 
@@ -38,6 +42,19 @@ public class ParentControls : MonoBehaviour
         mainControls = new MainControls();
         rb = GetComponent<Rigidbody>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        
+    }
+
+    protected void PlayTheSound(AudioSource aud)
+    {
+        float volume = 0;
+        if (masterVolume != null)
+        {
+            Debug.Log("here");
+            masterVolume.GetFloat("Master Volume", out volume);
+        }
+        volume = (volume + 80)/100;
+        AudioSource.PlayClipAtPoint(aud.clip, transform.position, volume);
     }
 
 

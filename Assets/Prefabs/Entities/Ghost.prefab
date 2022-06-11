@@ -24507,6 +24507,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   speed: 6
+  masterVolume: {fileID: 24100000, guid: 800702d549b9b574dbc6dab770240fca, type: 2}
+  flight: 1
 --- !u!136 &3341833771761986381
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24546,7 +24548,7 @@ AudioSource:
   m_GameObject: {fileID: 3341833771761986382}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 800702d549b9b574dbc6dab770240fca, type: 2}
   m_audioClip: {fileID: 8300000, guid: dece09b04118a4b9baa8a6a6eb5bd903, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

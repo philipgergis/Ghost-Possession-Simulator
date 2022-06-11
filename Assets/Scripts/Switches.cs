@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Switches : MonoBehaviour
 {
     // button object
     [SerializeField] private Transform button;
+    [SerializeField] private AudioMixer masterVolume;
 
     // button adjustment value
     [SerializeField] protected float buttonAdjustment = 0.01f;
@@ -16,13 +18,27 @@ public class Switches : MonoBehaviour
     [SerializeField] AudioSource clickOn;
     [SerializeField] AudioSource clickOff;
 
+
+    protected void PlayTheSound(AudioSource aud)
+    {
+        float volume = 0;
+        if (masterVolume != null)
+        {
+            Debug.Log("here");
+            masterVolume.GetFloat("Master Volume", out volume);
+        }
+        volume = (volume + 80) / 100;
+        AudioSource.PlayClipAtPoint(aud.clip, transform.position, volume);
+    }
+
     // when an object is on the switch it stays on
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Possess" || other.tag == "Human" )
         {
             SwitchActivate();
-            AudioSource.PlayClipAtPoint(clickOn.clip, transform.position, 2.0f);
+            PlayTheSound(clickOn);
+            // AudioSource.PlayClipAtPoint(clickOn.clip, transform.position, volume);
         }
         
     }
@@ -33,7 +49,8 @@ public class Switches : MonoBehaviour
         if (other.tag == "Possess" || other.tag == "Human" )
         {
             SwitchDeactivate();
-            AudioSource.PlayClipAtPoint(clickOff.clip, transform.position, 2.0f);
+            PlayTheSound(clickOff);
+            //AudioSource.PlayClipAtPoint(clickOff.clip, transform.position, volume);
         }
     }
 

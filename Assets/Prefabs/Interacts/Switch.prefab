@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 4815685038352362755}
+  masterVolume: {fileID: 24100000, guid: 800702d549b9b574dbc6dab770240fca, type: 2}
   buttonAdjustment: 0.05
   clickOn: {fileID: 8056002259285774037}
   clickOff: {fileID: 2788995732059070919}
@@ -318,7 +319,7 @@ AudioSource:
   m_GameObject: {fileID: 4815685039337854482}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 800702d549b9b574dbc6dab770240fca, type: 2}
   m_audioClip: {fileID: 8300000, guid: fee6e0bbfa02e0848ba2ce408136e230, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
@@ -414,7 +415,7 @@ AudioSource:
   m_GameObject: {fileID: 4815685039337854482}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 800702d549b9b574dbc6dab770240fca, type: 2}
   m_audioClip: {fileID: 8300000, guid: bacfb096c11408b4abbd5db6e811347a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5

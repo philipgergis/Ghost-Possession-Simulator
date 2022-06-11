@@ -371,6 +371,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   speed: 1
+  masterVolume: {fileID: 24100000, guid: 800702d549b9b574dbc6dab770240fca, type: 2}
   wallDetector: {fileID: 7222817070530713282}
   maskClimb:
     serializedVersion: 2
@@ -393,6 +394,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5306327f3a8510f44becb81fa43ba237, type: 3}
   volumeChangeMultiplier: 0.2
   pitchChangeMultiplier: 0.2
+  masterVolume: {fileID: 24100000, guid: 800702d549b9b574dbc6dab770240fca, type: 2}
 --- !u!82 &-2513265049698611008
 AudioSource:
   m_ObjectHideFlags: 0
@@ -402,9 +404,9 @@ AudioSource:
   m_GameObject: {fileID: 3006173111223536687}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 800702d549b9b574dbc6dab770240fca, type: 2}
+  m_audioClip: {fileID: 8300000, guid: b7164597642bbd84a8c7aad10974e47c, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
