@@ -28,4 +28,10 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("Start Menu");
     }
+
+    public void RestartLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
