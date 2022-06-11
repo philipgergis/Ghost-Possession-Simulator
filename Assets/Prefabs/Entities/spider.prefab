@@ -372,6 +372,9 @@ MonoBehaviour:
     m_Bits: 8192
   speed: 1
   wallDetector: {fileID: 7222817070530713282}
+  maskClimb:
+    serializedVersion: 2
+    m_Bits: 257
 --- !u!114 &668327607566985544
 MonoBehaviour:
   m_ObjectHideFlags: 0

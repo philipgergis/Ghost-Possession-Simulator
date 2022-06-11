@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 4815685039337854959}
   - component: {fileID: 8056002259285774037}
   - component: {fileID: 2788995732059070919}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -6,6 +6,7 @@ public class SpiderControls : ParentControls
 {
 
     [SerializeField] Transform wallDetector;
+    [SerializeField] LayerMask maskClimb;
 
     protected override void MoveEntity()
     {
@@ -25,7 +26,7 @@ public class SpiderControls : ParentControls
 
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-                if (Physics.CheckSphere(wallDetector.position, radiusDetect, mask) && forwardBackward > 0)
+                if (Physics.CheckSphere(wallDetector.position, radiusDetect, maskClimb) && forwardBackward > 0)
                 {
                     rb.velocity = Vector3.up * speed;
 
